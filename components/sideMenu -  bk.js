@@ -3,13 +3,16 @@ import Link from 'next/link';
 import { object } from 'prop-types';
 import fetch from 'isomorphic-unfetch';
 
-// const z='something big'
+
 const SideMenu = (props) => {
 return(
 <aside className="menu colums is-fullheight" >
 <ul>
-     <li>{props.z}</li>
-     <li>someother thing</li>
+      {props.data.map(show => (
+        <li key={show.id}>
+            <a>{show.id}</a>
+        </li>
+      ))}
     </ul>
 </aside>
 );
@@ -22,7 +25,7 @@ SideMenu.getInitialProps = async function() {
   console.log(`Show data fetched. Count: ${data.length}`);
 
   return {
-  z:'some really long string'
+    data
   };
 }
 export default SideMenu;
