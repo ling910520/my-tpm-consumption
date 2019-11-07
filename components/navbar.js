@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Link from 'next/link'
 
 const Navbar = () => {
 
@@ -19,9 +20,12 @@ const [burgerState,setBurgerState]= useState(false);
   </div>
   <div id="navbarBasicExample" className={`navbar-menu ${burgerState ?'is-active':''}`} >
     <div className="navbar-start">
-      <a className="navbar-item" href='###'>
-        Homesss
-      </a>
+      <Link href='/'>
+        <a className="navbar-item" >
+            Home
+          </a>
+        </Link>
+         
 
       <a className="navbar-item" href='###'>
         Documentation
@@ -33,9 +37,12 @@ const [burgerState,setBurgerState]= useState(false);
         </a>
 
         <div className="navbar-dropdown">
-          <a className="navbar-item" href='###'>
+        <Link href='/about'>
+        <a className="navbar-item" >
             About
           </a>
+        </Link>
+         
           <a className="navbar-item" href='###'>
             Jobs
           </a>

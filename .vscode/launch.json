@@ -12,7 +12,7 @@
             "type": "node",
             "request": "launch",
             "name": "Next: Node",
-            "runtimeExecutable": "next",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/next/dist/bin/next",
             "runtimeArgs": [
                 "--inspect"
             ],

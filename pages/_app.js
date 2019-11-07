@@ -1,20 +1,16 @@
-import React from 'react'
-import App from 'next/app'
+import React from 'react';
+import App from 'next/app';
+import UserContext from '../components/UserContext';
 
-class Layout extends React.Component {
-  render () {
-    const { children } = this.props
-    return <div className='layout'>{children}</div>
-  }
-}
+class MyApp extends App {
+  render() {
+    const { Component, pageProps } = this.props;
 
-export default class MyApp extends App {
-  render () {
-    const { Component, pageProps } = this.props
     return (
-      <Layout>
+      <UserContext.Provider value={{ id: '123' }}>
         <Component {...pageProps} />
-      </Layout>
-    )
-  }
+      </UserContext.Provider>
+    );  }
 }
+
+export default MyApp;
