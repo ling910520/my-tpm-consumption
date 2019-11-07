@@ -2,8 +2,6 @@ import Layout from '../components/Layout';
 import Fetch from 'isomorphic-unfetch';
 import Prices from '../components/Prices'
 import About from './about'
-
-import MyApp from './_app.js'
 const Home = (props) =>(
  <Layout>
      <div>

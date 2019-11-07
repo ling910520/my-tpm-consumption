@@ -8,13 +8,13 @@ import {  } from 'react';
 
 const About = (props) => {
 
-    const { id } = useContext(UserContext);
+    const { data } = useContext(UserContext);
 
 return(
 <Layout>
     <div>
     <ul>
-        <li>about  {id}</li>
+        <li>bitcoin rate from _appjs {data}</li>
     </ul>
     </div>
  </Layout>
