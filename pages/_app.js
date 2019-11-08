@@ -4,40 +4,23 @@ import UserContext from '../components/UserContext';
 
 
 class MyApp extends App {
-  state = {
-    user: null
-  };
-  constructor(props) {
-    super(props);
 
-    /*
-    by creating a constructor here it will do the following:
-    const I18nStore = new I18n(props.i18nState);
-    window["I18nStore"] = I18nStore;
-    */
-  }
+static async getInitialProps({ Component, router, ctx }) {
+let pageProps = {};
 
-componentDidMount = async function ali(){
-  const res =  await fetch 
-  ('https://api.coindesk.com/v1/bpi/currentprice.json');
-  const data = await res.json();
-
-this.setState({
-user: data
-})
-
-    // return{
-      //     bpi:"ali"
-      // }
-  };
-  
-
+if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+}
+const availabilityData = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json');
+const data = await availabilityData.json()
+return { pageProps,data};
+}
 
   render() {
-    const { Component, pageProps } = this.props;
-    console.log(this.state.disclaimer)
+    const { Component, pageProps,data} = this.props;
+    console.log(data.disclaimer)
     return (
-      <UserContext.Provider value={ {data:"ali"} }>
+      <UserContext.Provider value={ {data:data.disclaimer} }>
         <Component {...pageProps} />
       </UserContext.Provider>
     );  }

@@ -14,7 +14,7 @@ return(
 <Layout>
     <div>
     <ul>
-        <li>bitcoin rate from _appjs {data}</li>
+        <li>bitcoin rate from _appjs: {data}</li>
     </ul>
     </div>
  </Layout>
