@@ -6,3 +6,6 @@ https://reacttricks.com/sharing-global-data-in-next-with-custom-app-and-useconte
 resync with sources:
 git fetch
 git reset --hard origin/master
+
+#push branch to origin
+git push origin "branch1"
