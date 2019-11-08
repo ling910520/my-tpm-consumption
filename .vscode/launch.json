@@ -13,9 +13,9 @@
             "request": "launch",
             "name": "Next: Node",
             "runtimeExecutable": "${workspaceFolder}/node_modules/next/dist/bin/next",
-            "runtimeArgs": [
-                "--inspect"
-            ],
+            "env": {
+                "NODE_OPTIONS": "--inspect"
+              },
             "port": 9229,
             "console": "integratedTerminal"
         }
