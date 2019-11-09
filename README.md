@@ -9,3 +9,7 @@ git reset --hard origin/master
 
 ## switch to remote branch
 - git checkout --track origin/daves_branch
+
+## branching
+git checkout -b "iss1" 5773  
+git checkout -d "iss1"  
