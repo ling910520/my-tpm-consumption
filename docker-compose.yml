@@ -1,0 +1,10 @@
+version: '2.1'
+
+services:
+  my-tpm-consumption:
+    image: my-tpm-consumption
+    build: .
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3000:3000
