@@ -12,3 +12,8 @@ git push origin "branch1"
 
 ## switch to remote branch
 git checkout --track origin/daves_branch
+
+
+# add . and commit before switch
+git add . 
+git commit -m "minor update"
