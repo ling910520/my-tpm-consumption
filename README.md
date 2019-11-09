@@ -14,6 +14,7 @@ git push origin "branch1"
 git checkout --track origin/daves_branch
 
 
-# add . and commit before switch
+## add . and commit before switch
 git add . 
 git commit -m "minor update"
+git push
