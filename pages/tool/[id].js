@@ -1,38 +1,38 @@
 import fetch from 'isomorphic-unfetch';
 import orderBy from "lodash/orderBy";
+import "react-table/react-table.css";
+import ReactTable from 'react-table';
 
 
 const tool = (props) =>{
     let header = Object.keys(props.toolTableData[0]).filter(x=>(x!=='RF_HRS')) // take out rf_hrs columns
     let body = orderBy(props.toolTableData,'reporting_date','desc') //order desc by reporting date
-    return (
-        <div className="section table-container">
-            <div className="columns is-pulled-left">
-            <table className="table is-bordered is-hoverable">
-                <thead className="">
-                    <tr >
-                    {header.map((key,index)=>(
-                                <th key={index} className='is-info'>{key}</th>
-                    ))}
-    
-                    </tr>
-                </thead>
-              <tbody>
-              {
-                body.map((key,index)=>(
-                    <tr key={index}>
-                            <td>{key.reporting_date}</td>
-                            <td>{key.PlatenRFHours}</td>
-                    </tr>
-                ))
-              }
 
-              </tbody>
-            </table>
-            {/* <CSVLink data={this.state.students}>Download me</CSVLink>
-                        <CSVDownload data={this.state.students} target="_blank" /> */}
-        </div>
-        </div>
+    const columns = [
+        {
+          Header: 'reporting_date',
+          accessor: 'reporting_date',
+          headerStyle: { whiteSpace: 'unset' },
+          style: { whiteSpace: 'unset'},
+        },
+        {
+          Header: 'PlatenRFHours',
+          accessor: 'PlatenRFHours',
+          headerStyle: { whiteSpace: 'unset' },
+          style: { whiteSpace: 'unset' },
+        }
+      ];
+    return (
+        <ReactTable 
+              
+        manual
+        minRows={0}
+        pageSize={1}
+        data={body}
+        columns={columns}
+        pages={0}
+        showPagination={false}
+      />
     )
 }
 
@@ -45,3 +45,6 @@ tool.getInitialProps  = async function(context){
 }
 
 export default tool;
+
+
+
