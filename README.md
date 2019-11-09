@@ -18,3 +18,11 @@ git checkout --track origin/daves_branch
 git add . 
 git commit -m "minor update"
 git push
+
+
+
+## Features
+
+- Lightweight (4kb - 9kb depending on features and tree-shaking)
+- Headless (100% customizable, Bring-your-own-UI)
+- Auto out of the box, fully controllable API
