@@ -26,35 +26,14 @@ const [burgerState,setBurgerState]= useState(false);
           </a>
         </Link>
          
-
       <a className="navbar-item" href='###'>
         Documentation
       </a>
-
-      <div className="navbar-item has-dropdown is-hoverable">
-        <a className="navbar-link" href='###'>
-          More
-        </a>
-
-        <div className="navbar-dropdown">
-        <Link href='/about'>
+      <Link href='/table'>
         <a className="navbar-item" >
-            About
+            Table
           </a>
         </Link>
-         
-          <a className="navbar-item" href='###'>
-            Jobs
-          </a>
-          <a className="navbar-item" href='###'>
-            Contact
-          </a>
-          <hr className="navbar-divider"/>
-          <a className="navbar-item" href='###'>
-            Report an issue
-          </a>
-        </div>
-      </div>
     </div>
 
     <div className="navbar-end">
