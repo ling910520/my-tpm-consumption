@@ -1,8 +1,8 @@
 FROM node:10.13 as build-deps
 WORKDIR /usr/src/app
-COPY package.json yarn.lock ./
+RUN rm -rf node_modules
+RUN rm -rf .next
 RUN yarn
-COPY . ./
 RUN yarn build
 
 # Stage 2 - the production environment
@@ -17,10 +17,6 @@ CMD ["nginx", "-g", "daemon off;"]
 # WORKDIR /usr/src/app
 # COPY . .
 
-# RUN rm -rf node_modules
-# RUN rm -rf .next
-# RUN rm yarn.lock
-# RUN yarn
 
 # RUN yarn build
 # EXPOSE 3000
