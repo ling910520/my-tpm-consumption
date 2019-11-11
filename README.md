@@ -13,3 +13,10 @@ git reset --hard origin/master
 ## branching
 git checkout -b "iss1" 5773  
 git checkout -d "iss1"  
+
+## git fetch
+git fetch --all
+git checkout origin/homeuse
+git branch -b "iss1"
+git checkout "homeuse"
+git merge  "iss1"

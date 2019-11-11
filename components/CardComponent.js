@@ -9,6 +9,26 @@ const CardComponent = (props) =>{
     let latestdate =  new Date(reporting_date)
 
     const {RF_HRS, PlatenRFHours,eqp_id,cathode_name,Consumption} = props.data
+    
+    const renderType  = ()=>{
+      
+        if ( {eqp_id} ==='3DE-02'){
+            return(
+                <div>
+                    {RF_HRS} : {PlatenRFHours}
+                </div>
+            ) 
+
+        }
+        else{
+            return(
+                <div>
+                    {cathode_name} : {Consumption}
+                </div>
+            )
+
+        }
+    }
 
 return(
     <div classNameName="container notification">
@@ -26,14 +46,8 @@ return(
                     </a>
                 </header>
                 <div className="card-content">
-                    <div className="content">{
-                        if ( {eqp_id} ==='3DE-02')(
-                            {RF_HRS} : {PlatenRFHours}
-                        )else(
-                            {cathode_name} : {Consumption}
-                        )
-                        
-                    }
+                    <div className="content">
+                    {renderType()}
                    
                         <br />
                         <time><span>Last updated: {latestdate.toDateString()}</span></time>
