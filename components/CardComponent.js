@@ -1,13 +1,14 @@
 import React, { useState,useEffect } from 'react';
+import orderBy from "lodash/orderBy";
 
 
-const CardComponent = () =>{
-    const data = [{"reporting_date":"2019-11-08","RF_HRS":"Stat3_Etch_MV_PlatenRFHours","PlatenRFHours":74.46933746},
-    {"reporting_date":"2019-11-09","RF_HRS":"Stat3_Etch_MV_PlatenRFHours","PlatenRFHours":85.63039398},
-    {"reporting_date":"2019-11-10","RF_HRS":"Stat3_Etch_MV_PlatenRFHours","PlatenRFHours":92.68686676},
-    {"reporting_date":"2019-11-11","RF_HRS":"Stat3_Etch_MV_PlatenRFHours","PlatenRFHours":94.50147247}]
-const [Time, setTime] = useState(new Date());
+const CardComponent = (props) =>{
 
+    // let body = orderBy(props.data,'reporting_date','desc') //order desc by reporting date
+    let reporting_date = Object.values(props.data)[0] // take only latest reporting_date
+    let latestdate =  new Date(reporting_date)
+
+    const {RF_HRS, PlatenRFHours,eqp_id,cathode_name,Consumption} = props.data
 
 return(
     <div classNameName="container notification">
@@ -16,7 +17,7 @@ return(
             <div className="card">
                 <header className="card-header is-primary">
                     <p className="card-header-title">
-                        Tool 1
+                       {eqp_id}
                     </p>
                     <a href="#" className="card-header-icon" aria-label="more options">
                         <span className="icon">
@@ -25,13 +26,17 @@ return(
                     </a>
                 </header>
                 <div className="card-content">
-                    <div className="content">
-                        <ul>
-                            <li> Metal 1 :</li>
-                            <li> Metal 2 :</li>
-                        </ul>
+                    <div className="content">{
+                        if ( {eqp_id} ==='3DE-02')(
+                            {RF_HRS} : {PlatenRFHours}
+                        )else(
+                            {cathode_name} : {Consumption}
+                        )
+                        
+                    }
+                   
                         <br />
-                        <time datetime="2016-1-1"><span>Last updated: {Time.toDateString()}</span></time>
+                        <time><span>Last updated: {latestdate.toDateString()}</span></time>
                     </div>
                 </div>
                 {/* <footer className="card-footer">
@@ -49,6 +54,8 @@ return(
 
 
 export default CardComponent;
+
+
 
 
 // SideMenu.getInitialProps = async function() {
