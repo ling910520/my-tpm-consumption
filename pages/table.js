@@ -9,6 +9,7 @@ const Table = () =>{
         { id: 5, name: 'Asad', age: 25, email: 'asad@email.com',address:"178,bukit pelandok,71960,pd,ns,msia"}
         ]
     const [users, setUsers] = useState(data)
+
     const renderTable = ()=>{
       return users.map((x,index)=>{
         return (
@@ -22,14 +23,24 @@ const Table = () =>{
                 editRow(x.name)
               }}>Edit
               </button>
-            <button className="button muted-button">Delete</button>
+            <button className="button muted-button"
+            onClick={()=>{
+              deleteRow(x.id)
+            }}
+            >
+            Delete</button>
         </td>
         </tr>
         )
       })
     }
+
     const editRow = name =>{
       setUsers(users.map(user => (user.name === name ? Object.assign({}, user,{name:'wasifupdated'}) : user)))
+    }
+
+    const deleteRow = id =>{
+      setUsers(users.filter(user =>user.id!==id))
     }
 
       // Similar to componentDidMount and componentDidUpdate:
@@ -37,9 +48,43 @@ const Table = () =>{
         renderTable()
         console.log(users)
       },[users]);
-  
+
+      const initialFormState = { id:null,name: '', age: null, email: '',address:null }
+      const [user, setUser] = useState(initialFormState)
+    
+      const handleInputChange = event => {
+        
+      const { name, value } = event.target
+      setUser({ ...user, [name]: value })
+      }
+
+      const addUser = user => {
+        user.id = users.length + 1
+        setUsers([...users, user])
+      }
 return(
     <Layout>
+
+    <form
+      onSubmit={event => {
+        event.preventDefault()
+        if (!user.name || !user.email) return
+
+        addUser(user)
+        setUser(initialFormState)
+      }}
+    >
+      <label>Name</label>
+      <input type="text" name="name" value={user.name} onChange={handleInputChange} />
+      <label>age</label>
+      <input type="text" name="age" value={user.age} onChange={handleInputChange} />
+      <label>email</label>
+      <input type="text" name="email" value={user.email} onChange={handleInputChange} />
+      <button>Add new user</button>
+    </form>
+
+
+
   <table className='table bordered'>
     <thead>
       <tr>

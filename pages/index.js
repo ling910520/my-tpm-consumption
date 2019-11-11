@@ -1,7 +1,10 @@
 import Layout from '../components/Layout'
+import CardComponent from '../components/Cardcomponent'
 const Home = () =>{
 return(
-    <Layout></Layout>
+    <Layout>
+        <CardComponent/>
+    </Layout>
 )
 }
 
