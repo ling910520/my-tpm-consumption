@@ -23,7 +23,7 @@ https://reacttricks.com/sharing-global-data-in-next-with-custom-app-and-useconte
 # Docker 
 
 - Docker file auto generated from vscode
-- Docker build -t my-testing .
+- Docker build . -t my-testing 
 - Docker images
 - docker run -p 3334:3001 my-tpm-consumption
 
