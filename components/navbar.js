@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const Navbar = () => {
 
-const [burgerState,setBurgerState]= useState(false);
+const [burgerState,setBurgerState]= useState(false)
  return(
 <nav className="navbar is-spaced is-black" role="navigation" aria-label="main navigation">
   <div className="navbar-brand">
