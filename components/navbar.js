@@ -20,23 +20,22 @@ const [burgerState,setBurgerState]= useState(false);
   </div>
   <div id="navbarBasicExample" className={`navbar-menu ${burgerState ?'is-active':''}`} >
     <div className="navbar-start">
-      <Link href='/'>
+
+    </div>
+
+    <div className="navbar-end">
+    <Link href='/'>
         <a className="navbar-item" >
             Home
           </a>
         </Link>
-         
-      <a className="navbar-item" href='###'>
-        Documentation
-      </a>
       <Link href='/table'>
         <a className="navbar-item" >
-            Table
+            Details
           </a>
         </Link>
-    </div>
 
-    <div className="navbar-end">
+
       <div className="navbar-item">
         <div className="buttons">
           <a className="button is-primary" href='###'>
