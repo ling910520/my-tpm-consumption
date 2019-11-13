@@ -1,5 +1,5 @@
 import Layout from '../components/Layout'
-import React, { useState,useEffect} from 'react'
+import React, { useState,useEffect,useReducer} from 'react'
 import { CSVLink, CSVDownload } from "react-csv";
 
 import '../styles/styles.css'
@@ -15,6 +15,24 @@ const Table = () =>{
 
     const header =Object.keys(returnedFromTool[0])
     const [toolDetails, settoolDetails] = useState(returnedFromTool)
+
+
+    //reducer 
+    function init(toolDetails){
+      return toolDetails
+    }
+    const reducer = (state,action)=>{
+      if(action.eqp_id==='Select Eqp'){
+          alert('select eqp')
+          return init(action.payload);
+      }else{
+        return settoolDetails(toolDetails.filter(toolDetail =>toolDetail.eqp_id===action.eqp_id))
+      }
+
+    }
+
+    const [state, dispatch] = useReducer(reducer, toolDetails, init);
+
     const distinctEqpId = [...new Set(toolDetails.map(x=>x.eqp_id))]
 
     const renderTable = ()=>{
@@ -139,11 +157,11 @@ return(
                 </div>
                 <div className="column">
                     <div className="select is-info">
-                  <select onChange={handleInputChange}>
+                  <select onChange={()=>dispatch({eqp_id: event.target.value, payload: toolDetails})}>
                     <option>Select Eqp </option>
                     {
-                    toolDetails.map((item,key)=>(
-                      <option key={key}>{item.eqp_id}</option>
+                      distinctEqpId.map((item,key)=>(
+                      <option key={key}>{item}</option>
                     ))
                   }
                   </select>
