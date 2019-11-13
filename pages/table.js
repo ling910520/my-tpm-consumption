@@ -16,22 +16,25 @@ const Table = () =>{
     const header =Object.keys(returnedFromTool[0])
     const [toolDetails, settoolDetails] = useState(returnedFromTool)
 
-
+    // const originalToolDetails = [...toolDetails]
     //reducer 
-    function init(toolDetails){
-      return toolDetails
-    }
-    const reducer = (state,action)=>{
-      if(action.eqp_id==='Select Eqp'){
-          alert('select eqp')
-          return init(action.payload);
-      }else{
-        return settoolDetails(toolDetails.filter(toolDetail =>toolDetail.eqp_id===action.eqp_id))
-      }
+    // function init(toolDetails){
+    //   return {initialState:toolDetails}
+    // }
+    // const reducer = (state,action)=>{
+    //   if(action.eqp_id==='Select Eqp'){
+    //       console.log(`${action.eqp_id}`)
+    //       return settoolDetails(originalToolDetails);
+    //     }else{
+    //       console.log(`${action.eqp_id} hello`)
+    //     return settoolDetails(toolDetails.filter(toolDetail =>toolDetail.eqp_id===action.eqp_id))
+    //   }
 
-    }
+    // }
 
-    const [state, dispatch] = useReducer(reducer, toolDetails, init);
+
+
+    // const [state, dispatch] = useReducer(reducer, toolDetails, init);
 
     const distinctEqpId = [...new Set(toolDetails.map(x=>x.eqp_id))]
 
@@ -73,7 +76,11 @@ const Table = () =>{
     }
     const handleInputChange = event => {
       const { value } = event.target
-      settoolDetails(toolDetails.filter(toolDetail =>toolDetail.eqp_id===value))
+      if(value ==='Select Eqp'){
+        settoolDetails([...returnedFromTool])
+      }else{
+        settoolDetails(toolDetails.filter(toolDetail =>toolDetail.eqp_id===value))
+      }
 
       // alert(value)
       }
@@ -82,6 +89,10 @@ const Table = () =>{
         toolDetail.id = toolDetails.length + 1
         settoolDetails([...toolDetails, toolDetail])
       }
+          useEffect(() => {
+      // Update the document title using the browser API
+      renderTable()
+    },[toolDetails]);
 return(
     <Layout>
 
@@ -157,7 +168,7 @@ return(
                 </div>
                 <div className="column">
                     <div className="select is-info">
-                  <select onChange={()=>dispatch({eqp_id: event.target.value, payload: toolDetails})}>
+                  <select onChange={handleInputChange}>
                     <option>Select Eqp </option>
                     {
                       distinctEqpId.map((item,key)=>(
