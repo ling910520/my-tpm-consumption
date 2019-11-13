@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const Navbar = () => {
 
-const [burgerState,setBurgerState]= useState(false);
+const [burgerState,setBurgerState]= useState(false)
  return(
 <nav className="navbar is-spaced is-black" role="navigation" aria-label="main navigation">
   <div className="navbar-brand">
@@ -20,44 +20,22 @@ const [burgerState,setBurgerState]= useState(false);
   </div>
   <div id="navbarBasicExample" className={`navbar-menu ${burgerState ?'is-active':''}`} >
     <div className="navbar-start">
-      <Link href='/'>
+
+    </div>
+
+    <div className="navbar-end">
+    <Link href='/'>
         <a className="navbar-item" >
             Home
           </a>
         </Link>
-         
-
-      <a className="navbar-item" href='###'>
-        Documentation
-      </a>
-
-      <div className="navbar-item has-dropdown is-hoverable">
-        <a className="navbar-link" href='###'>
-          More
-        </a>
-
-        <div className="navbar-dropdown">
-        <Link href='/about'>
+      <Link href='/table'>
         <a className="navbar-item" >
-            About
+            Details
           </a>
         </Link>
-         
-          <a className="navbar-item" href='###'>
-            Jobs
-          </a>
-          <a className="navbar-item" href='###'>
-            Contact
-          </a>
-          <hr className="navbar-divider"/>
-          <a className="navbar-item" href='###'>
-            Report an issue
-          </a>
-        </div>
-      </div>
-    </div>
 
-    <div className="navbar-end">
+
       <div className="navbar-item">
         <div className="buttons">
           <a className="button is-primary" href='###'>
