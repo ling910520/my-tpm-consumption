@@ -16,7 +16,7 @@ const Table = (props) =>{
 
     const header =Object.keys(props.returnedFromTool[0])
     const [toolDetails, settoolDetails] = useState(props.returnedFromTool)
-    const distinctEqpId = [...new Set(toolDetails.map(x=>x.eqp_id))]
+    const distinctEqpId = [...new Set(props.returnedFromTool.map(x=>x.eqp_id))]
 
     //render table
     const renderTable = ()=>{
@@ -69,11 +69,20 @@ const Table = (props) =>{
       settoolDetail({ ...toolDetail, [name]: value })
     }
     const handleInputChange = event => {
+      event.preventDefault()
       const { value } = event.target
-      settoolDetails(toolDetails.filter(toolDetail =>toolDetail.eqp_id===value))
-
-      // alert(value)
+      if(value ==='Select Eqp'){
+        settoolDetails([...props.returnedFromTool])
+      }else{
+        settoolDetails(toolDetails.filter(toolDetail =>toolDetail.eqp_id===value))
       }
+    }
+
+      //   // Similar to componentDidMount and componentDidUpdate:
+      //   useEffect(() => {
+      //     renderTable()
+      // },[toolDetails]);
+
 
       const addToolDetails = toolDetail => {
         toolDetail.msg_id = toolDetails.length + 1
@@ -156,10 +165,10 @@ return(
                 <div className="column">
                     <div className="select is-info">
                   <select onChange={handleInputChange}>
-                    <option>Select Eqp </option>
+                    <option value="Select Eqp">Select Eqp </option>
                     {
                       distinctEqpId.map((item,key)=>(
-                      <option key={key}>{item}</option>
+                      <option value={item} key={key}>{item}</option>
                     ))
                   }
                   </select>
