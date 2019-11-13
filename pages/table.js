@@ -11,7 +11,7 @@ const Table = (props) =>{
 
     let today = new Date().toISOString().split('T')[0]
 
-    const initialFormState = {id:'',eqp_id:'',"reporting_date":today,parameter_name:'' , parameter_value: '',limit: ''}
+    const initialFormState = {msg_id:'',"reporting_date":today,eqp_id:'',parameter_name:'' , parameter_value: '',parameter_limit: ''}
     const [toolDetail,settoolDetail] = useState(initialFormState)
 
     const header =Object.keys(props.returnedFromTool[0])
@@ -47,8 +47,21 @@ const Table = (props) =>{
     //   setUsers(users.map(user => (user.name === name ? Object.assign({}, user,{name:'wasifupdated'}) : user)))
     // }
 
-    const deleteRow = id =>{
-      settoolDetails(toolDetails.filter(toolDetail =>toolDetail.id!==id))
+    const deleteRow = msg_id =>{
+      settoolDetails(toolDetails.filter(toolDetail =>toolDetail.msg_id!==msg_id))
+    }
+
+    const handleSubmit = toolDetail =>{
+      console.log(toolDetail)
+      fetch('http://sgpatsprod01:5000/adddata', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(toolDetail)
+      });
+      // console.log(`${toolDetail} submmitted`)
     }
 
     const handleSelectChange = event =>{
@@ -63,7 +76,7 @@ const Table = (props) =>{
       }
 
       const addToolDetails = toolDetail => {
-        toolDetail.id = toolDetails.length + 1
+        toolDetail.msg_id = toolDetails.length + 1
         settoolDetails([...toolDetails, toolDetail])
       }
 return(
@@ -79,6 +92,7 @@ return(
               onSubmit={event => {
                 event.preventDefault()
                 // if (!toolDetail.eqp_id || !toolDetail.parameter_name || !toolDetail.parameter_value) return
+                handleSubmit(toolDetail)
                 addToolDetails(toolDetail)
                 settoolDetail(initialFormState)
                 // console.log(toolDetail)
@@ -91,7 +105,7 @@ return(
                   <input className="input" type="text" name="eqp_id" value={toolDetail.eqp_id} onChange={handleSelectChange} list="eqp_id"/>
                   <datalist id="eqp_id">
                   {
-                    toolDetails.map((item,key)=>(
+                    distinctEqpId.map((item,key)=>(
                       <option key={key} value ={item.eqp_id}/>
                     ))
                   }
@@ -120,7 +134,7 @@ return(
               <div className="field">
                 <label className="label">Max Limit</label>
                 <div className="control">
-                    <input className="input" type="text" name="limit" value={toolDetail.limit} onChange={handleSelectChange} />
+                    <input className="input" type="text" name="parameter_limit" value={toolDetail.parameter_limit} onChange={handleSelectChange} />
                     </div>
               </div>
               <div className="field">
@@ -144,8 +158,8 @@ return(
                   <select onChange={handleInputChange}>
                     <option>Select Eqp </option>
                     {
-                    toolDetails.map((item,key)=>(
-                      <option key={key}>{item.eqp_id}</option>
+                      distinctEqpId.map((item,key)=>(
+                      <option key={key}>{item}</option>
                     ))
                   }
                   </select>

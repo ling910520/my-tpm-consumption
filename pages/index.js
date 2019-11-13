@@ -34,7 +34,7 @@ return(
         {
             datas.map((val,index)=>{
             return(
-                <Kanban data={val}/>
+                <Kanban data={val} key={index}/>
             )
         })
         }
