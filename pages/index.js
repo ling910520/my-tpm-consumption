@@ -19,7 +19,7 @@ const dataFromTool = [
 {"reporting_date":"2019-11-11",'eqp_id':'3SPT-28',"cathode1":113.734076,"cathode3":248.964495,limit:100},  
 
 {"reporting_date":"2019-11-11",'eqp_id':'3DE-02',"RF_HRS":"Stat3_Etch_MV_PlatenRFHours","PlatenRFHours":94.50147247,limit:100}]
-let data = orderBy(dataFromTool,['reporting_date','eqp_id']) //order desc by reporting date
+let datas = orderBy(dataFromTool,['reporting_date','eqp_id']) //order desc by reporting date
 
 // let reporting_date = Object.values(data)[0] // take only latest reporting_date
 //  let latestdate =  new Date()
@@ -32,7 +32,7 @@ return(
     <section className="container cards-container">
       <div className="columns is-centered is-multiline" id="sectioncontainer">
         {
-            data.map((val,index)=>{
+            datas.map((val,index)=>{
             return(
                 <Kanban data={val}/>
             )

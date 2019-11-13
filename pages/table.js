@@ -1,10 +1,11 @@
 import Layout from '../components/Layout'
 import React, { useState,useEffect} from 'react'
 import { CSVLink, CSVDownload } from "react-csv";
+import fetch from 'isomorphic-unfetch';
 
 import '../styles/styles.css'
-import {returnedFromTool,supportedParameter} from '../data/data'
-const Table = () =>{
+import {supportedParameter} from '../data/data'
+const Table = (props) =>{
 
     //initialize part 
 
@@ -13,25 +14,26 @@ const Table = () =>{
     const initialFormState = {id:'',eqp_id:'',"reporting_date":today,parameter_name:'' , parameter_value: '',limit: ''}
     const [toolDetail,settoolDetail] = useState(initialFormState)
 
-    const header =Object.keys(returnedFromTool[0])
-    const [toolDetails, settoolDetails] = useState(returnedFromTool)
+    const header =Object.keys(props.returnedFromTool[0])
+    const [toolDetails, settoolDetails] = useState(props.returnedFromTool)
     const distinctEqpId = [...new Set(toolDetails.map(x=>x.eqp_id))]
 
+    //render table
     const renderTable = ()=>{
       return toolDetails.map((x,index)=>{
         return (
-        <tr key={x.id}>
+        <tr key={x.msg_id}>
         <td>{x.reporting_date}</td>
         <td>{x.eqp_id}</td>
         <td>{x.parameter_name}</td>
         <td>{x.parameter_value}</td>
-        <td>{x.limit}</td>
+        <td>{x.parameter_limit}</td>
 
         <td>
 
             <button className="button muted-button"
             onClick={()=>{
-              deleteRow(x.id)
+              deleteRow(x.msg_id)
             }}
             >
             Delete</button>
@@ -161,7 +163,7 @@ return(
                   <tr>
                   {
                     header.map( (head,index) => {
-                      if (head!=='id'){
+                      if (head!=='msg_id'){
                         return  <th className="has-text-centered" key={index}>{head}</th>
                       }
                     }
@@ -187,7 +189,14 @@ return(
 )
 }
 
+Table.getInitialProps = async function() {
+  const res = await fetch('http://sgpatsprod01:5000/getdetails');
+  const returnedFromTool = await res.json();
 
+  return {
+    returnedFromTool
+  };
+}
 export default Table;
 
 
