@@ -1,17 +1,21 @@
 import Layout from '../components/Layout'
 import React, { useState,useEffect} from 'react'
-import '../styles/styles.css'
+import { CSVLink, CSVDownload } from "react-csv";
 
+import '../styles/styles.css'
+import {returnedFromTool,supportedParameter} from '../data/data'
 const Table = () =>{
-  const returnedFromTool = [
-    {id: 1,reporting_date: "2019-11-11",eqp_id: '3SPT-20',parameter_name:"cathode1",parameter_value:248.964495},
-    {id: 2,reporting_date: "2019-11-11",eqp_id: '3SPT-20',parameter_name:"cathode3",parameter_value:108.964495},    
-    {id: 3,reporting_date: "2019-11-11",eqp_id: '3DE-02',parameter_name:"Stat3_Etch_MV_PlatenRFHours",parameter_value:94.50147247}]
-  const supportedParameter=[
-    {id:1,parameter_name:"Stat3_Etch_MV_PlatenRFHours"},{id:2,parameter_name:"cathode3"},{id:3,parameter_name:"cathode3"}
-  ]
-    
+
+    //initialize part 
+
+    let today = new Date().toISOString().split('T')[0]
+
+    const initialFormState = {id:'',eqp_id:'',"reporting_date":today,parameter_name:'' , parameter_value: '',limit: ''}
+    const [toolDetail,settoolDetail] = useState(initialFormState)
+
+    const header =Object.keys(returnedFromTool[0])
     const [toolDetails, settoolDetails] = useState(returnedFromTool)
+    const distinctEqpId = [...new Set(toolDetails.map(x=>x.eqp_id))]
 
     const renderTable = ()=>{
       return toolDetails.map((x,index)=>{
@@ -21,6 +25,7 @@ const Table = () =>{
         <td>{x.eqp_id}</td>
         <td>{x.parameter_name}</td>
         <td>{x.parameter_value}</td>
+        <td>{x.limit}</td>
 
         <td>
 
@@ -43,13 +48,17 @@ const Table = () =>{
     const deleteRow = id =>{
       settoolDetails(toolDetails.filter(toolDetail =>toolDetail.id!==id))
     }
-    let today = new Date().toISOString().split('T')[0]
-    const initialFormState = {id:'',eqp_id:'',"reporting_date":today,parameter_name:'' , parameter_value: '' }
-    const [toolDetail,settoolDetail] = useState(initialFormState)
 
-    const handleInputChange = event => {
+    const handleSelectChange = event =>{
       const { name, value } = event.target
-      settoolDetail({ ...toolDetail, [name]: value })
+
+    }
+    const handleInputChange = event => {
+      const { value } = event.target
+      settoolDetails(toolDetails.filter(toolDetail =>toolDetail.eqp_id===value))
+
+      // alert(value)
+      //settoolDetail({ ...toolDetail, [name]: value })
       }
 
       const addToolDetails = toolDetail => {
@@ -78,22 +87,26 @@ return(
               <div className="field">
                 <label className="label">Tool ID</label>
                   <div className="control">
-                  <input className="input" type="text" name="eqp_id" value={toolDetail.eqp_id} onChange={handleInputChange} />
+                  <input className="input" type="text" name="eqp_id" value={toolDetail.eqp_id} onChange={handleInputChange} list="eqp_id"/>
+                  <datalist id="eqp_id">
+                  {
+                    toolDetails.map((item,key)=>(
+                      <option key={key} value ={item.eqp_id}/>
+                    ))
+                  }
+                  </datalist>
                   </div>
               </div>
               <div className="field">
                 <label className="label">Parameter Name</label>
                 <div className="control">
-                <input className="input" type="text" name="parameter_name" value={toolDetail.parameter_name} onChange={handleInputChange} list="data"/>
-                  <datalist id="data">
+                <input className="input" type="text" name="parameter_name" value={toolDetail.parameter_name} onChange={handleInputChange} list="parameter_name"/>
+                  <datalist id="parameter_name">
                   {
                     supportedParameter.map((item,key)=>(
                       <option key={key} value ={item.parameter_name}/>
                     ))
                   }
-                        <option value="Internet Explorer"/>
-                        <option value="Firefox"/>
-                        <option value="Chrome"/>
                   </datalist>
                   </div>
               </div>
@@ -101,6 +114,12 @@ return(
                 <label className="label">Parameter Values</label>
                 <div className="control">
                     <input className="input" type="text" name="parameter_value" value={toolDetail.parameter_value} onChange={handleInputChange} />
+                    </div>
+              </div>
+              <div className="field">
+                <label className="label">Max Limit</label>
+                <div className="control">
+                    <input className="input" type="text" name="limit" value={toolDetail.limit} onChange={handleInputChange} />
                     </div>
               </div>
               <div className="field">
@@ -113,17 +132,43 @@ return(
           </div>
       </div>
       <div className="column notification ">
+      <div className="columns">
+                <div className="column is-narrow">
+                  <button className="button is-primary">
+                  <CSVLink data={toolDetails} id="csvLink">Download</CSVLink>
+                  </button>
+                </div>
+                <div className="column">
+                    <div className="select is-info">
+                  <select onChange={handleInputChange}>
+                    <option>Select Eqp </option>
+                    {
+                    toolDetails.map((item,key)=>(
+                      <option key={key}>{item.eqp_id}</option>
+                    ))
+                  }
+                  </select>
+                </div>
+                </div>
+      </div>
+
+
       <div className="card events-card">
         <div className="card-table" >
           <div className="content">
               <table className="table is-fullwidth is-striped is-bordered" >
                   <thead>
-                    <tr>
-                      <th className="has-text-centered">Reporting Date</th>
-                      <th className="has-text-centered">Tool ID</th>
-                      <th className="has-text-centered">Parameter Name</th>
-                      <th className="has-text-centered">Parameter Values</th>
-                      <th className="has-text-centered">Delete</th>
+                  <tr>
+                  {
+                    header.map( (head,index) => {
+                      if (head!=='id'){
+                        return  <th className="has-text-centered" key={index}>{head}</th>
+                      }
+                    }
+
+                    )
+                  }
+                    <th className="has-text-centered">Delete</th>
                     </tr>
                   </thead>
                   <tbody>

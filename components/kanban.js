@@ -4,7 +4,7 @@ import orderBy from "lodash/orderBy";
 
 const kanban = (props) =>{
 
-    const {RF_HRS, PlatenRFHours,eqp_id,cathode1,cathode3,reporting_date} = props.data
+    const {RF_HRS, PlatenRFHours,eqp_id,cathode1,cathode3,reporting_date,limit} = props.data
     let latestdate =  new Date(reporting_date)
     const renderType  = ()=>{
       
@@ -13,6 +13,7 @@ const kanban = (props) =>{
             return(
                 <div className="board-item">
                 <div className="board-item-content"><span>{RF_HRS} : {PlatenRFHours}</span></div>
+                <div className="board-item-content"><span> Max Limit: {limit}</span></div>
                 <div className="board-item-content"><span>Projected PM Due Date: {latestdate.toDateString()}</span></div>
                 <div className="board-item-content"><span>Last updated: {latestdate.toDateString()}</span></div>
                 </div>
@@ -24,6 +25,7 @@ const kanban = (props) =>{
                 <div className="board-item">
                 <div className="board-item-content"><span>cathode1 : {cathode1} (kwh)</span></div>
                 <div className="board-item-content"><span>cathode3 : {cathode3} (kwh)</span></div>
+                <div className="board-item-content"><span>Max Limit: {limit} (kwh)</span></div>
                 <div className="board-item-content"><span>PM Due: {latestdate.toDateString()}</span></div>
                 <div className="board-item-content"><span>Last updated: {latestdate.toDateString()}</span></div>
                 </div>
@@ -35,7 +37,7 @@ const kanban = (props) =>{
 return(
 
     <div className="column is-narrow" >
-    <article className="message is-info">
+    <article className="message is-primary">
       <div className="message-header">
         <p>{eqp_id}</p>
         {/* <button className="delete" aria-label="delete"></button> */}

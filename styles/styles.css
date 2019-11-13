@@ -41,3 +41,6 @@
 footer {
   margin-top: 2rem;
 }
+#csvLink{
+  text-decoration: none;
+}
