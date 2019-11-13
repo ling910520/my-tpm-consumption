@@ -51,14 +51,13 @@ const Table = () =>{
 
     const handleSelectChange = event =>{
       const { name, value } = event.target
-
+      settoolDetail({ ...toolDetail, [name]: value })
     }
     const handleInputChange = event => {
       const { value } = event.target
       settoolDetails(toolDetails.filter(toolDetail =>toolDetail.eqp_id===value))
 
       // alert(value)
-      //settoolDetail({ ...toolDetail, [name]: value })
       }
 
       const addToolDetails = toolDetail => {
@@ -87,7 +86,7 @@ return(
               <div className="field">
                 <label className="label">Tool ID</label>
                   <div className="control">
-                  <input className="input" type="text" name="eqp_id" value={toolDetail.eqp_id} onChange={handleInputChange} list="eqp_id"/>
+                  <input className="input" type="text" name="eqp_id" value={toolDetail.eqp_id} onChange={handleSelectChange} list="eqp_id"/>
                   <datalist id="eqp_id">
                   {
                     toolDetails.map((item,key)=>(
@@ -100,7 +99,7 @@ return(
               <div className="field">
                 <label className="label">Parameter Name</label>
                 <div className="control">
-                <input className="input" type="text" name="parameter_name" value={toolDetail.parameter_name} onChange={handleInputChange} list="parameter_name"/>
+                <input className="input" type="text" name="parameter_name" value={toolDetail.parameter_name} onChange={handleSelectChange} list="parameter_name"/>
                   <datalist id="parameter_name">
                   {
                     supportedParameter.map((item,key)=>(
@@ -113,13 +112,13 @@ return(
               <div className="field">
                 <label className="label">Parameter Values</label>
                 <div className="control">
-                    <input className="input" type="text" name="parameter_value" value={toolDetail.parameter_value} onChange={handleInputChange} />
+                    <input className="input" type="text" name="parameter_value" value={toolDetail.parameter_value} onChange={handleSelectChange} />
                     </div>
               </div>
               <div className="field">
                 <label className="label">Max Limit</label>
                 <div className="control">
-                    <input className="input" type="text" name="limit" value={toolDetail.limit} onChange={handleInputChange} />
+                    <input className="input" type="text" name="limit" value={toolDetail.limit} onChange={handleSelectChange} />
                     </div>
               </div>
               <div className="field">
