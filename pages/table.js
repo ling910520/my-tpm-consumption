@@ -23,21 +23,11 @@ const Table = (props) =>{
       return toolDetails.map((x,index)=>{
         return (
         <tr key={x.msg_id}>
-        <td>{x.reporting_date}</td>
-        <td>{x.eqp_id}</td>
-        <td>{x.parameter_name}</td>
-        <td>{x.parameter_value}</td>
-        <td>{x.parameter_limit}</td>
-
-        <td>
-
-            <button className="button muted-button"
-            onClick={()=>{
-              deleteRow(x.msg_id)
-            }}
-            >
-            Delete</button>
-        </td>
+        <td className="has-text-centered">{x.reporting_date}</td>
+        <td className="has-text-centered">{x.eqp_id}</td>
+        <td className="has-text-centered">{x.parameter_name}</td>
+        <td className="has-text-centered">{x.parameter_value}</td>
+        <td className="has-text-centered">{x.parameter_limit}</td>
         </tr>
         )
       })
@@ -52,8 +42,7 @@ const Table = (props) =>{
     }
 
     const handleSubmit = toolDetail =>{
-      console.log(toolDetail)
-      fetch('http://sgpatsprod01:5000/adddata', {
+      fetch('http://sgpatsprod01:4001/adddata', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -109,7 +98,7 @@ return(
               }}
             >
               <div className="field">
-                <label className="label">Tool ID</label>
+                <label className="label">Eqp ID</label>
                   <div className="control">
                   <input className="input" type="text" name="eqp_id" value={toolDetail.eqp_id} onChange={handleSelectChange} list="eqp_id"/>
                   <datalist id="eqp_id">
@@ -141,7 +130,7 @@ return(
                     </div>
               </div>
               <div className="field">
-                <label className="label">Max Limit</label>
+                <label className="label">Parameter Limit</label>
                 <div className="control">
                     <input className="input" type="text" name="parameter_limit" value={toolDetail.parameter_limit} onChange={handleSelectChange} />
                     </div>
@@ -192,7 +181,6 @@ return(
 
                     )
                   }
-                    <th className="has-text-centered">Delete</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -212,7 +200,7 @@ return(
 }
 
 Table.getInitialProps = async function() {
-  const res = await fetch('http://sgpatsprod01:5000/getdetails');
+  const res = await fetch('http://sgpatsprod01:4001/getdetails');
   const returnedFromTool = await res.json();
 
   return {

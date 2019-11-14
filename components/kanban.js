@@ -3,19 +3,20 @@ import orderBy from "lodash/orderBy";
 
 
 const kanban = (props) =>{
-
-    const {RF_HRS, PlatenRFHours,eqp_id,cathode1,cathode3,reporting_date,limit} = props.data
+    const {Stat3_Etch_MV_PlatenRFHours,eqp_id,Ti,Cu,reporting_date,parameter_limit} = props.data
     let latestdate =  new Date(reporting_date)
+    let PM = new Date(reporting_date)
     const renderType  = ()=>{
       
-        if ( eqp_id =="3DE-02"){
-          
+        if ( eqp_id.match(/DE/g)){
+            PM.setDate(PM.getDate()+(110-parseInt(Stat3_Etch_MV_PlatenRFHours))/8);
+            // let PM = PMDate.toDateString()
+            ;
             return(
                 <div className="board-item">
-                <div className="board-item-content"><span>{RF_HRS} : {PlatenRFHours}</span></div>
-                <div className="board-item-content"><span> Max Limit: {limit}</span></div>
-                <div className="board-item-content"><span>Projected PM Due Date: {latestdate.toDateString()}</span></div>
-                <div className="board-item-content"><span>Last updated: {latestdate.toDateString()}</span></div>
+                <div className="board-item-content"><span>RF Hrs : {Stat3_Etch_MV_PlatenRFHours} Max: 110</span></div>
+                <div className="board-item-content"><span>Forecast PM Date: {PM.toLocaleDateString()}</span></div>
+                <div className="board-item-content"><span>Last updated: {reporting_date}</span></div>
                 </div>
             ) 
 
@@ -23,11 +24,10 @@ const kanban = (props) =>{
         else{
             return(
                 <div className="board-item">
-                <div className="board-item-content"><span>cathode1 : {cathode1} (kwh)</span></div>
-                <div className="board-item-content"><span>cathode3 : {cathode3} (kwh)</span></div>
-                <div className="board-item-content"><span>Max Limit: {limit} (kwh)</span></div>
-                <div className="board-item-content"><span>PM Due: {latestdate.toDateString()}</span></div>
-                <div className="board-item-content"><span>Last updated: {latestdate.toDateString()}</span></div>
+                <div className="board-item-content"><span>Ti : {Ti}(kwh) Max:525</span></div>
+                <div className="board-item-content"><span>Cu : {Cu} (kwh) Max:300</span></div>
+                {/* <div className="board-item-content"><span>PM Due: {latestdate.toDateString()}</span></div> */}
+                <div className="board-item-content"><span>Last updated: {reporting_date}</span></div>
                 </div>
             )
 
@@ -37,7 +37,7 @@ const kanban = (props) =>{
 return(
 
     <div className="column is-narrow" >
-    <article className="message is-primary">
+    <article className="message is-info">
       <div className="message-header">
         <p>{eqp_id}</p>
         {/* <button className="delete" aria-label="delete"></button> */}

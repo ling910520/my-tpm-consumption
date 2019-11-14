@@ -36,7 +36,7 @@ const [burgerState,setBurgerState]= useState(false)
         </Link>
 
 
-      <div className="navbar-item">
+      {/* <div className="navbar-item">
         <div className="buttons">
           <a className="button is-primary" href='###'>
             <strong>Sign up</strong>
@@ -45,7 +45,7 @@ const [burgerState,setBurgerState]= useState(false)
             Log in
           </a>
         </div>
-      </div>
+      </div> */}
     </div>
   </div>
 </nav>
