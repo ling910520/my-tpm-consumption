@@ -4,41 +4,12 @@
 
 
 ## resync with sources:
-<<<<<<< HEAD
-- git fetch
--git reset --hard origin/master
-
-## push branch to origin
-- git push origin "branch1"
-=======
 git fetch  
 git reset --hard origin/master
->>>>>>> homeuse
 
 ## switch to remote branch
 - git checkout --track origin/daves_branch
 
-<<<<<<< HEAD
-
-## add . and commit before switch
-- git add . 
-- git commit -m "minor update"
-- git push
-
-
-# Docker 
-
-- Docker file auto generated from vscode
-- Docker build . -t my-testing 
-- Docker images
-- docker run -p 3334:3001 my-tpm-consumption
-
-# after build only deploy
-FROM nginx:alpine
-COPY /build /usr/share/nginx/html
-EXPOSE 80
-CMD [“nginx”, “-g”, “daemon off;”]
-=======
 ## branching
 git checkout -b "iss1" 5773  
 git checkout -d "iss1"  
@@ -49,4 +20,7 @@ git checkout origin/homeuse
 git branch -b "iss1"
 git checkout "homeuse"
 git merge  "iss1"
->>>>>>> homeuse
+
+## add origin
+git remote add origin git://github.com/ling910520/file-monitoring
+git push - u origin master

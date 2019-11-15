@@ -42,7 +42,7 @@ const Table = (props) =>{
     }
 
     const handleSubmit = toolDetail =>{
-      fetch('http://sgpatsprod01:4001/adddata', {
+      const res = fetch('http://sgpatsprod01:4001/adddata', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -50,6 +50,7 @@ const Table = (props) =>{
         },
         body: JSON.stringify(toolDetail)
       });
+      // alert(`${res} from tool`)
       // console.log(`${toolDetail} submmitted`)
     }
 
