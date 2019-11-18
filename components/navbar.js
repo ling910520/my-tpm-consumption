@@ -34,6 +34,12 @@ const [burgerState,setBurgerState]= useState(false)
             Details
           </a>
         </Link>
+        <Link href='/success'>
+        <a className="navbar-item" >
+            Success
+          </a>
+        </Link>
+
 
 
       <div className="navbar-item">
