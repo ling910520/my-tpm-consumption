@@ -1,4 +1,4 @@
-git version: '2.1'
+version: '2.1'
 
 services:
   my-tpm-consumption:
@@ -8,3 +8,15 @@ services:
       NODE_ENV: production
     ports:
       - 3000:3000
+  my-nginx:
+    image: samples
+    # build:
+    #   context: ./nginx
+    #   dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 8080:8090
+      - 8081:8091
+      # - 8081:8081
+    # depends_on:
+    #   - my-tpm-consumption

@@ -17,7 +17,7 @@ const dataFromTool = props.returnedFromTool
 // {"reporting_date":"2019-11-11",'eqp_id':'3SPT-25',"cathode1":113.734076,"cathode3":248.964495,limit:100},  
 // {"reporting_date":"2019-11-11",'eqp_id':'3SPT-26',"cathode1":113.734076,"cathode3":248.964495,limit:100},  
 // {"reporting_date":"2019-11-11",'eqp_id':'3SPT-27',"cathode1":113.734076,"cathode3":248.964495,limit:100},  
-// {"reporting_date":"2019-11-11",'eqp_id':'3SPT-28',"cathode1":113.734076,"cathode3":248.964495,limit:100},  
+// {"reporting_date":"2019-11-11",'eqp_id':'3SPT-28',"cathode1":113.734076,"cathode3":248.964495,limit:100},  ]
 
 // {"reporting_date":"2019-11-11",'eqp_id':'3DE-02',"RF_HRS":"Stat3_Etch_MV_PlatenRFHours","PlatenRFHours":94.50147247,limit:100}]
 let datas = orderBy(dataFromTool,['reporting_date','eqp_id']) //order desc by reporting date

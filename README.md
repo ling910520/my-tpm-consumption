@@ -24,3 +24,46 @@ git merge  "iss1"
 ## add origin
 git remote add origin git://github.com/ling910520/file-monitoring
 git push - u origin master
+
+
+# Docker 
+## Dockerfile
+FROM node:10.13-alpine  
+ENV NODE_ENV production  
+## Setting working directory. All the path will be relative to WORKDIR  
+WORKDIR /usr/src/app  
+COPY . .  
+
+RUN rm -rf node_modules  
+RUN rm -rf .next  
+RUN yarn config set strict-ssl false  
+RUN yarn  
+RUN yarn build  
+
+## docker build -t my-tpm-consumption .
+## docker build -t my-nginx .
+## docker images  
+
+## docker system prune -a
+
+## Run ‘docker ps -a’ to see all containers which are running on system.
+
+## docker stop <container_id>
+## docker rm <container_id> or docker rmi <imageid>
+## docker rmi my-tpm-consumption:v1.0
+
+## docker run --rm -it -p 3334:3001 0fdc339aab76    
+## docker run --rm -it -p 3334:3001 my-docker:v1.0
+## docker run --rm -it -p 3334:3001 my-nginx
+## docker run -p 8080:8080 samples   
+
+# docker compose 
+## docker-compose up -d --build
+## docker-compose ps
+## docker-compose rm
+## docker-compose start 
+## docker-compose stop
+## http://sauling:3000
+
+# powershell
+## docker ps -q | % { docker stop $_ }

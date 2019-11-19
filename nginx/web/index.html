@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/mybootstrap/css/bootstrap.min.css">
+</head>
+<body style="padding-top:0px" id="home">
+
+
+        <form runat="server" id="contact">
+           
+            <section class="navigation">
+                <div class="nav-container">
+                    <div class="brand">
+                        <a runat="server" href="~/OrderForm">cts</a><br />
+                    </div>
+                    <div class="brand2">
+                        <a runat="server" style="color: white" href="~/OrderForm">Conversion Tracking System</a>
+                    </div>
+                    <nav>
+                        <div class="nav-mobile">
+                            <a id="nav-toggle" href="#!"><span></span></a>
+                        </div>
+                        <ul class="nav-list">
+                
+                            <li id="order">
+                                <a runat="server" style="cursor: pointer">Conversion</a>
+                                <ul class="nav-dropdown">
+                                    <li id="ic">
+                                        <a runat="server" href="~/InitiateConversion">Initiate Conversion</a>
+                                    </li>
+                                    <li id="oc">
+                                        <a runat="server" href="~/OngoingConversions">Active Conversions</a>
+                                    </li>
+                                    <li id="ch">
+                                        <a runat="server" href="~/ConversionFilter">Conversion History</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="ka">
+                                <a runat="server" href="~/KitAvailability">Kit  Availability</a>
+                            </li>
+                            <li id="cm">
+                                <a runat="server" href="~/ConversionManagement">Conversion Management</a>
+                            </li>
+                        </ul>
+                    </nav>
+  
+    
+                </div>
+                
+            </section>
+</body>
+
+<style>
+  
+  nav {
+float:right;
+width:60%;
+    
+}
+
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+    nav ul li {
+        float: left;
+        position: relative;
+        margin-right: 1%;
+        font-weight: bold;
+    }
+
+        nav ul li a {
+            display: block;
+            padding: 0 20px;
+            line-height: 40px;
+            background-color: #00a27b;
+            color: #ffffff;
+            text-decoration: none;
+            margin-top: 50px;
+            border-radius: 10px 10px 0px 0px;
+        }
+
+            nav ul li a:hover {
+                background: #152f2b;
+                color: #ffffff;
+            }
+
+            nav ul li a:not(:only-child):after {
+                padding-left: 4px;
+                content: ' ▾';
+            }
+
+        nav ul li ul li {
+            min-width: 190px;
+        }
+
+            nav ul li ul li a {
+                padding: 15px;
+                line-height: 20px;
+                z-index: 1;
+                margin-top: 0px;
+                border-radius: 0;
+            }
+
+.nav-dropdown {
+    position: absolute;
+    display: none;
+    z-index: 1;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+.nav-mobile {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #262626;
+    height: 90px;
+    width: 70px;
+}
+
+#nav-toggle {
+    position: absolute;
+    left: 18px;
+    top: 22px;
+    cursor: pointer;
+    padding: 10px 35px 16px 0px;
+}
+
+    #nav-toggle span,
+    #nav-toggle span:before,
+    #nav-toggle span:after {
+        cursor: pointer;
+        border-radius: 1px;
+        height: 5px;
+        width: 35px;
+        background: #ffffff;
+        position: absolute;
+        display: block;
+        content: '';
+        transition: all 300ms ease-in-out;
+    }
+
+        #nav-toggle span:before {
+            top: -10px;
+        }
+
+        #nav-toggle span:after {
+            bottom: -10px;
+        }
+
+    #nav-toggle.active span {
+        background-color: transparent;
+    }
+
+        #nav-toggle.active span:before, #nav-toggle.active span:after {
+            top: 0;
+        }
+
+        #nav-toggle.active span:before {
+            transform: rotate(45deg);
+        }
+
+        #nav-toggle.active span:after {
+            transform: rotate(-45deg);
+        }
+
+@media only screen and (max-width: 800px) {
+    .nav-mobile {
+        display: block;
+    }
+
+    nav {
+        width: 100%;
+        padding: 70px 0 15px;
+    }
+
+        nav ul {
+            display: none;
+        }
+
+            nav ul li {
+                float: none;
+            }
+
+                nav ul li a {
+                    padding: 15px;
+                    line-height: 20px;
+                }
+
+                nav ul li ul li a {
+                    padding-left: 30px;
+                }
+
+    .nav-dropdown {
+        position: static;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .nav-list {
+        display: block !important;
+        /*border:10px black solid;
+        float:right;
+        width:500px;*/
+    }
+}
+
+.navigation {
+    height: 90px;
+    background: lightblue;
+}
+
+.nav-container {
+    max-width: 100%;
+    padding-left: 7%;
+    /*margin: 0 auto;*/
+}
+
+.brand {
+    /*position: absolute;*/
+    /*padding-left: 20px;*/
+    float: left;
+    line-height: 90px;
+    /*text-transform: capitalize;*/
+    font-size: 80px;
+    margin-right: 10px;
+    background-color: #152f2b;
+}
+
+.brand2 {
+    /*position: absolute;*/
+    /*padding-left: 20px;*/
+    float: left;
+    line-height: 30px;
+    /*text-transform: capitalize;*/
+    font-size: 14px;
+    margin-top: 60px;
+    font-weight: bold
+}
+
+.brand a,
+.brand a:visited {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.auto-style3 {
+    right: 30px;
+    top: 10px;
+    height: 50px;
+    float: right;
+    position: absolute;
+    margin-right: 3%
+}
+
+#content {
+    padding: 0em 35px 0em 60px;
+    line-height: 1.6em;
+    background: url('images/a4.gif') repeat-x top left;
+    margin-top: 0px;
+}
+
+#footer {
+    background: url('images/a4.gif') repeat-x top left;
+    border-top: solid 1px #D0D4BB;
+    padding: 2.0em 3.5em 2.0em 3.5em;
+    font-size: 0.8em;
+}
+</style>
+</html>
