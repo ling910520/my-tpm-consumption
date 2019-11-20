@@ -21,7 +21,7 @@ const dataFromTool = props.returnedFromTool
 
 // {"reporting_date":"2019-11-11",'eqp_id':'3DE-02',"RF_HRS":"Stat3_Etch_MV_PlatenRFHours","PlatenRFHours":94.50147247,limit:100}]
 let datas = orderBy(dataFromTool,['reporting_date','eqp_id']) //order desc by reporting date
-
+console.log(_.chain(datas).groupBy("eqp_id"))
 // let reporting_date = Object.values(data)[0] // take only latest reporting_date
 //  let latestdate =  new Date()
 
@@ -46,7 +46,7 @@ return(
 }
 
 Home.getInitialProps = async function() {
-  const res = await fetch('http://sgpatsprod01:4001/getsummary');
+  const res = await fetch('http://sgpatsprod01:4001/getrawdata');
   const returnedFromTool = await res.json();
 
   return {

@@ -2,27 +2,26 @@ import Layout from '../components/Layout'
 import React, { useState,useEffect} from 'react'
 import { CSVLink, CSVDownload } from "react-csv";
 import fetch from 'isomorphic-unfetch';
-import moment from 'moment'
 
 import '../styles/styles.css'
 import {supportedParameter} from '../data/data'
 const Table = (props) =>{
-    const sortOrder = ['msg_id','inserted_timestamp','eqp_id','svid_name','svid_value']
 
-    const initialFormState = {msg_id:'',inserted_timestamp:'',eqp_id:'',svid_name:'' , svid_value: ''}
+    // let today = new Date().toISOString().split('T')[0]
+
+    const initialFormState = {msg_id:'',"inserted_timestamp":'',eqp_id:'',svid_name:'' , svid_value: ''}
     const [toolDetail,settoolDetail] = useState(initialFormState)
 
     const header =Object.keys(props.returnedFromTool[0])
-    header.sort(function(a,b){return sortOrder.indexOf(a)-sortOrder.indexOf(b)})
-    const [toolDetails, settoolDetails] = useState(props.returnedFromTool) // returned from tool 
+    const [toolDetails, settoolDetails] = useState(props.returnedFromTool)
     const distinctEqpId = [...new Set(props.returnedFromTool.map(x=>x.eqp_id))]
 
-    //function to render table
+    //render table
     const renderTable = ()=>{
       return toolDetails.map((x,index)=>{
         return (
         <tr key={x.msg_id}>
-        <td className="has-text-centered">{moment.utc(x.inserted_timestamp).format('YYYY-MM-DD HH:mm:ss')}</td>
+        <td className="has-text-centered">{x.inserted_timestamp.toISOString().split('T')}</td>
         <td className="has-text-centered">{x.eqp_id}</td>
         <td className="has-text-centered">{x.svid_name}</td>
         <td className="has-text-centered">{x.svid_value}</td>
@@ -31,8 +30,14 @@ const Table = (props) =>{
       })
     }
 
+    // const editRow = name =>{
+    //   setUsers(users.map(user => (user.name === name ? Object.assign({}, user,{name:'wasifupdated'}) : user)))
+    // }
 
-    // function for adding new data to db 
+    const deleteRow = msg_id =>{
+      settoolDetails(toolDetails.filter(toolDetail =>toolDetail.msg_id!==msg_id))
+    }
+
     const handleSubmit = toolDetail =>{
       const res = fetch('http://sgpatsprod01:4001/adddata', {
         method: 'POST',
@@ -42,15 +47,14 @@ const Table = (props) =>{
         },
         body: JSON.stringify(toolDetail)
       });
-
+      // alert(`${res} from tool`)
+      // console.log(`${toolDetail} submmitted`)
     }
-    // function for setting form data when form data change
+
     const handleSelectChange = event =>{
       const { name, value } = event.target
       settoolDetail({ ...toolDetail, [name]: value })
     }
-
-    // function for handle user change filter parameter
     const handleInputChange = event => {
       event.preventDefault()
       const { value } = event.target
@@ -61,6 +65,16 @@ const Table = (props) =>{
       }
     }
 
+      //   // Similar to componentDidMount and componentDidUpdate:
+      //   useEffect(() => {
+      //     renderTable()
+      // },[toolDetails]);
+
+
+      const addToolDetails = toolDetail => {
+        toolDetail.msg_id = toolDetails.length + 1
+        settoolDetails([...toolDetails, toolDetail])
+      }
 return(
     <Layout>
 
@@ -132,7 +146,7 @@ return(
       <div className="columns">
                 <div className="column is-narrow">
                   <button className="button is-primary">
-                  <CSVLink data={toolDetails} id="csvLink" filename="data.csv">Download</CSVLink>
+                  <CSVLink data={toolDetails} id="csvLink">Download</CSVLink>
                   </button>
                 </div>
                 <div className="column">
