@@ -34,6 +34,11 @@ const [burgerState,setBurgerState]= useState(false)
             Details
           </a>
         </Link>
+        <Link href='/charts'>
+        <a className="navbar-item" >
+            charts
+          </a>
+        </Link>
 
 
       {/* <div className="navbar-item">

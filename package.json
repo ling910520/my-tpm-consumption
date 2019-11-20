@@ -20,6 +20,7 @@
     "react": "16.11.0",
     "react-csv": "^1.1.2",
     "react-dom": "16.11.0",
-    "react-table": "^6.8.3"
+    "react-table": "^6.8.3",
+    "recharts": "^1.8.5"
   }
 }
