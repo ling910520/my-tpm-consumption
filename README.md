@@ -25,6 +25,12 @@ git merge  "iss1"
 git remote add origin git://github.com/ling910520/file-monitoring
 git push - u origin master
 
+##  Changing the Last Commit:
+git commit --amend --no-edit
+
+## git rebase
+git rebase master
+git rebase --continuess
 
 # Docker 
 ## Dockerfile
