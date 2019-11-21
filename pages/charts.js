@@ -9,48 +9,31 @@ import {
   } from 'recharts';
   
 const charts = (props) => {
-    const data = [
-        {
-          name: 'Page A', uv: 4000, pv: 2400, amt: 2400,limit:3000
-        },
-        {
-          name: 'Page B', uv: 3000, pv: 1398, amt: 2210,limit:3000
-        },
-        {
-          name: 'Page C', uv: 2000, pv: 9800, amt: 2290,limit:3000
-        },
-        {
-          name: 'Page D', uv: 2780, pv: 3908, amt: 2000,limit:3000
-        },
-        {
-          name: 'Page E', uv: 1890, pv: 4800, amt: 2181,limit:3000
-        },
-        {
-          name: 'Page F', uv: 2390, pv: 3800, amt: 2500,limit:3000
-        },
-        {
-          name: 'Page G', uv: 3490, pv: 4300, amt: 2100,limit:3000
-        },
-      ];
+    const datas = props.returnedFromTool
+    const unsortedData = datas.filter(row =>row.eqp_id==='3DE-02')
 
-
+    const  data = orderBy(unsortedData,['msg_id'])
 
     return (
         <Layout>
             <section className="section">
             <div>
+            <div>3DE-02</div>
             <LineChart
                     width={2*200}
                     height={2*100}
                     data={data}
                 >
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" interval="preserveStartEnd" />
-                    <YAxis interval="preserveEnd" />
+                    <XAxis dataKey="inserted_timestamp" interval="Number" tick={false}/>
+                    <YAxis interval="preserveStartEnd" />
+                    <Tooltip />
+
                     <Legend />
-                    <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-                    <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-                    <ReferenceLine y={3000} label="Max(3000)" stroke="red" />
+                    <ReferenceLine y={110} label="Max(110)" stroke="red" alwaysShow="True"/>
+                    <ReferenceLine y={99} label="Warning(99)" stroke="orange" alwaysShow="True"/>
+
+                    <Line type="monotone" dataKey="svid_value" name  = "RF Hrs" stroke="#8884d8" activeDot={{ r: 8 }} />
 
                 </LineChart>
             </div>
@@ -59,7 +42,14 @@ const charts = (props) => {
         </Layout>
     )
 }
+charts.getInitialProps = async function() {
+  const res = await fetch('http://sgpatsprod01:4001/getrawdata');
+  const returnedFromTool = await res.json();
 
+  return {
+    returnedFromTool
+  };
+}
 
 export default charts;
 
