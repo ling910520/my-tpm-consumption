@@ -67,7 +67,7 @@ return(
 
     <div className="columns is-centered" id='tablecontainer'>
     <div className="column is-narrow"></div>
-    <div className="column is-narrow">
+    {/* <div className="column is-narrow">
     <div className="field is-grouped">
           <div className="content">
             <form
@@ -127,7 +127,7 @@ return(
             </form>
           </div>
           </div>
-      </div>
+      </div> */}
       <div className="column notification ">
       <div className="columns">
                 <div className="column is-narrow">

@@ -24,22 +24,21 @@ const [burgerState,setBurgerState]= useState(false)
     </div>
 
     <div className="navbar-end">
-    <Link href='/'>
+    <Link href='/index'>
         <a className="navbar-item" >
-            Home
+            Summary
           </a>
         </Link>
       <Link href='/table'>
         <a className="navbar-item" >
-            Details
+            Raw Data
           </a>
         </Link>
-        <Link href='/charts'>
+        <Link href='http://sgpfaapps01/TPMDatabase/Checklist/MainPage'>
         <a className="navbar-item" >
-            charts
+            New TPM Databases
           </a>
         </Link>
-
 
       {/* <div className="navbar-item">
         <div className="buttons">
