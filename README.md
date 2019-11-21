@@ -43,6 +43,13 @@ git branch -b "iss1"
 git checkout "homeuse"
 git merge  "iss1"
 
+##  Changing the Last Commit:
+git commit --amend --no-edit
+
+## git rebase
+git rebase master
+git rebase --continue
+
 # Docker 
 ## Dockerfile
 FROM node:10.13-alpine  
