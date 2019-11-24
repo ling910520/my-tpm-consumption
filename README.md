@@ -32,16 +32,10 @@ git reset --hard origin/master
 ## switch to remote branch
 - git checkout --track origin/daves_branch
 
-## branching
-git checkout -b "iss1" 5773  
-git checkout -d "iss1"  
+## tracked newly created remote branch
 
-## git fetch
-git fetch --all
-git checkout origin/homeuse
-git branch -b "iss1"
-git checkout "homeuse"
-git merge  "iss1"
+$ git checkout --track origin/newsletter
+
 
 ##  Changing the Last Commit:
 git commit --amend --no-edit
