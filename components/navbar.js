@@ -39,17 +39,12 @@ const [burgerState,setBurgerState]= useState(false)
             New TPM Databases
           </a>
         </Link>
+        <Link href='/changeEqpStatus'>
+        <a className="navbar-item" >
+            changeEqpStatus
+          </a>
+        </Link>
 
-      {/* <div className="navbar-item">
-        <div className="buttons">
-          <a className="button is-primary" href='###'>
-            <strong>Sign up</strong>
-          </a>
-          <a className="button is-light" href='###'>
-            Log in
-          </a>
-        </div>
-      </div> */}
     </div>
   </div>
 </nav>
