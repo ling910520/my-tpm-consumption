@@ -6,29 +6,27 @@ const ChangeEqpStatus = (props) => {
   const [status,setStatus] = useState(0)
 
   const btnSubmit = async () =>{
-    let raw_data =`|USERID FGUSER|PWD Fab$Guard|EQPID ${props.eqp_id}|EQPSTAT PMDUE|
-    COMMENT 1|from tpm consumption|END|`
+    const raw_data =`|USERID FGUSER|PWD Fab$Guard|EQPID ${props.eqp_id}|EQPSTAT PMDUE|COMMENT 1|down by tpm consumption|END|`
 
-    const res = await fetch('http://sngwu2.ad.skynet:13216/EQPSTATUS_UPDATE', {
+    const res = await fetch('http://sgpatsprod01:4002/EQPSTATUS_UPDATE', {
       method: 'POST',
       headers: {
         'Content-Type': 'text/plain; charset=UTF-8'
       },
-      mode:'no-cors',
       body: raw_data
     });
-    const returnedStatus = await res.statusText
-    console.log(returnedStatus)
-    if (returnedStatus == 200){
-      alert(`${props.eqp_id} status changes`)
+    const result = await res.json()
+    console.log(result)
+    if (result == 'SUCCESS'){
+      alert(`${props.eqp_id} status changes success`)
     }else{
-      alert(`no responses ${returnedStatus}`)
+      alert(`${props.eqp_id} status changes failed`)
     }
   }
 
   return (
-      <button className="button is-primary is-small" onClick={btnSubmit}>
-        ChangeEqpStatus: {props.eqp_id}
+      <button className="button is-info is-small" onClick={btnSubmit}>
+        Down tool: {props.eqp_id}
       </button>
       
   );
