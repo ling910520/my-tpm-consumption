@@ -34,22 +34,15 @@ const [burgerState,setBurgerState]= useState(false)
             Raw Data
           </a>
         </Link>
-        <Link href='http://sgpfaapps01/TPMDatabase/Checklist/MainPage'>
-        <a className="navbar-item" >
+        <a className="navbar-item" href='http://sgpfaapps01/TPMDatabase/Checklist/MainPage'>
             New TPM Databases
+          </a>
+        <Link href='/changeEqpStatus'>
+        <a className="navbar-item" >
+            changeEqpStatus
           </a>
         </Link>
 
-      {/* <div className="navbar-item">
-        <div className="buttons">
-          <a className="button is-primary" href='###'>
-            <strong>Sign up</strong>
-          </a>
-          <a className="button is-light" href='###'>
-            Log in
-          </a>
-        </div>
-      </div> */}
     </div>
   </div>
 </nav>
