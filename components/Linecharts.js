@@ -6,6 +6,7 @@ import orderBy from "lodash/orderBy";
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,ReferenceLine,Label
   } from 'recharts';
+import ChangeEqpStatus from './ChangeEqpStatus'
   
 const Linecharts = (props) => {
     const  data = orderBy(props.unsortedData,['msg_id'])
@@ -15,8 +16,15 @@ const Linecharts = (props) => {
 
         if(eqp_id.match(/DE/g)){
             return(
-                <div>
+                <div> 
+                <div className="columns">
+                <div className="column is-narrow">
                 <h1 className="is-capitalize has-text-weight-bold">{eqp_id}</h1>
+                </div>
+                <div className="column">
+                <ChangeEqpStatus eqp_id={eqp_id}></ChangeEqpStatus>
+                </div>
+               </div>
                 <LineChart
                         width={2*200}
                         height={2*100}
@@ -44,7 +52,15 @@ const Linecharts = (props) => {
 
             return(
                 <div>
+                <div className="columns">
+                <div className="column is-narrow">
                 <h1 className="is-capitalize has-text-weight-bold">{eqp_id}</h1>
+                </div>
+                <div className="column">
+                <ChangeEqpStatus eqp_id={eqp_id}></ChangeEqpStatus>
+                </div>
+               </div>
+
                 <LineChart
                         width={2*200}
                         height={2*100}

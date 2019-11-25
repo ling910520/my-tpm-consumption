@@ -1,40 +1,36 @@
 import fetch from 'isomorphic-unfetch';
 import React, { useState,useEffect} from 'react'
+import { loadGetInitialProps } from 'next/dist/next-server/lib/utils';
 
-const ChangeEqpStatus = () => {
+const ChangeEqpStatus = (props) => {
   const [status,setStatus] = useState(0)
 
   const btnSubmit = async () =>{
-    // const res = fetch('http://sgpatsprod01:4001/adddata', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(toolDetail)
-    // });
-    const res = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json')
-    const returnedStatus = await res.status
-    setStatus(returnedStatus)
+    let raw_data =`|USERID FGUSER|PWD Fab$Guard|EQPID ${props.eqp_id}|EQPSTAT PMDUE|
+    COMMENT 1|from tpm consumption|END|`
+
+    const res = await fetch('http://sngwu2.ad.skynet:13216/EQPSTATUS_UPDATE', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain; charset=UTF-8'
+      },
+      mode:'no-cors',
+      body: raw_data
+    });
+    const returnedStatus = await res.statusText
+    console.log(returnedStatus)
+    if (returnedStatus == 200){
+      alert(`${props.eqp_id} status changes`)
+    }else{
+      alert(`no responses ${returnedStatus}`)
+    }
   }
 
   return (
-    <div className="columns">
-    <div className="column is-narrow"></div>
-      <div className="column is-narrow">
-      <button className="btn" onClick={btnSubmit}>
-        ChangeEqpStatus
+      <button className="button is-primary is-small" onClick={btnSubmit}>
+        ChangeEqpStatus: {props.eqp_id}
       </button>
-      </div>
-      <div className="column">
-        <span className="tag is-info">
-          Current Eqp status:{status}
-        </span>
-      </div>
-
-
-
-      </div>
+      
   );
 };
 

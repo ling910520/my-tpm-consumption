@@ -34,11 +34,9 @@ const [burgerState,setBurgerState]= useState(false)
             Raw Data
           </a>
         </Link>
-        <Link href='http://sgpfaapps01/TPMDatabase/Checklist/MainPage'>
-        <a className="navbar-item" >
+        <a className="navbar-item" href='http://sgpfaapps01/TPMDatabase/Checklist/MainPage'>
             New TPM Databases
           </a>
-        </Link>
         <Link href='/changeEqpStatus'>
         <a className="navbar-item" >
             changeEqpStatus
