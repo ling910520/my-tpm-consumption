@@ -34,7 +34,7 @@ git reset --hard origin/master
 
 ## tracked newly created remote branch
 
-$ git checkout --track origin/newsletter
+git checkout --track origin/test1
 
 
 ##  Changing the Last Commit:
@@ -43,6 +43,9 @@ git commit --amend --no-edit
 ## git rebase
 git rebase master
 git rebase --continue
+
+## git delete remote branch
+git push -d origin test1
 
 # Docker 
 ## Dockerfile
