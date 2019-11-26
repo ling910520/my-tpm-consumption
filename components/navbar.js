@@ -37,11 +37,7 @@ const [burgerState,setBurgerState]= useState(false)
         <a className="navbar-item" href='http://sgpfaapps01/TPMDatabase/Checklist/MainPage'>
             New TPM Databases
           </a>
-        <Link href='/changeEqpStatus'>
-        <a className="navbar-item" >
-            changeEqpStatus
-          </a>
-        </Link>
+
 
     </div>
   </div>
