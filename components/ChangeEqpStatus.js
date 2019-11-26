@@ -63,7 +63,7 @@ getCurrentToolStatus()
     <div className="columns">
       <div className="column is-narrow">
       <div className={`tag is-medium ${status.status ==='AVAIL' ?'is-success':'is-danger'}`} >
-        Current status: {status.status}
+        Current Status: {status.status}
       </div>
       </div>
       <div className="column is-narrow">

@@ -73,8 +73,8 @@ const Linecharts = (props) => {
 
                         <Tooltip />
                         <Legend />
-                        <ReferenceLine name="Cu Max" y={525} stroke="red"  ifOverflow="extendDomain" label ="Cu Max(525)"/>
-                        <ReferenceLine name="Ti Max" y={300}  stroke="red"  ifOverflow="extendDomain" label ="Ti Max(300)"/>
+                        <ReferenceLine name="Ti Max" y={525} stroke="red"  ifOverflow="extendDomain" label ="Ti Max(525)"/>
+                        <ReferenceLine name="Cu Max" y={300}  stroke="red"  ifOverflow="extendDomain" label ="Cu Max(300)"/>
 
                         <Line  type="monotone" dataKey="svid_value"  data={Ti} name = "Ti"  stroke="blue" />
                         <Line type="monotone" dataKey="svid_value"   data={Cu} name = "Cu" stroke="#b87333"  />
