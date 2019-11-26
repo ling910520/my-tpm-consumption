@@ -9,6 +9,7 @@ import {
 import ChangeEqpStatus from './ChangeEqpStatus'
   
 const Linecharts = (props) => {
+    const scale=3.5
     const  data = orderBy(props.unsortedData,['msg_id'])
     const {eqp_id,svid_name} = data[0]
     
@@ -26,8 +27,8 @@ const Linecharts = (props) => {
                 </div>
                </div>
                 <LineChart
-                        width={2*200}
-                        height={2*100}
+                        width={scale*200}
+                        height={scale*100}
                         data={data}
                     >
                         <CartesianGrid strokeDasharray="3 3" />
@@ -39,7 +40,7 @@ const Linecharts = (props) => {
                         <ReferenceLine name="Max" y={110} stroke="red"  ifOverflow="extendDomain" label ="RF Max (110)"/>
                         <ReferenceLine name="Warning" y={99} stroke="orange"  ifOverflow="extendDomain" label ="RF Warning (99)"/>
         
-                        <Line type="monotone" dataKey="svid_value" name="RF Hrs" stroke="#8884d8" activeDot={{ r: 8 }} />
+                        <Line dataKey="svid_value" name="RF Hrs" stroke="#8884d8" activeDot={{ r: 8 }} />
         
                     </LineChart>
                     </div>
@@ -62,8 +63,8 @@ const Linecharts = (props) => {
                </div>
 
                 <LineChart
-                        width={2*200}
-                        height={2*100}
+                        width={scale*200}
+                        height={scale*100}
                     >
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="inserted_timestamp"  tick={false}/>
