@@ -14,10 +14,10 @@ return(
     <section className="container cards-container">
       <div className="columns is-centered is-multiline" id="sectioncontainer">
       {
-        distinctEqpId.map(val=>{
+        distinctEqpId.map((val,index)=>{
           const unsortedData = dataFromTool.filter(row =>row.eqp_id===val)
           return (
-            <Linecharts unsortedData = {unsortedData}></Linecharts>
+            <Linecharts unsortedData = {unsortedData} key={index}></Linecharts> 
           )
         })
       }

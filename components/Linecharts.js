@@ -9,7 +9,7 @@ import {
 import ChangeEqpStatus from './ChangeEqpStatus'
   
 const Linecharts = (props) => {
-    const scale=3.5
+    const scale=4
     const  data = orderBy(props.unsortedData,['msg_id'])
     const {eqp_id,svid_name} = data[0]
     
@@ -52,7 +52,7 @@ const Linecharts = (props) => {
             // const {eqp_id,svid_name} = Cu[0]
 
             return(
-                <div>
+                <div> 
                 <div className="columns">
                 <div className="column is-narrow">
                 <h1 className="is-capitalize has-text-weight-bold">{eqp_id}</h1>
