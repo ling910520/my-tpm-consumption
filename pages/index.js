@@ -30,10 +30,8 @@ return(
 Home.getInitialProps = async function() {
   const res = await fetch('http://sgpatsprod01:4001/getrawdata');
   const returnedFromTool = await res.json();
-
   return {
-    returnedFromTool
-  };
+    returnedFromTool  };
 }
 export default Home;
 

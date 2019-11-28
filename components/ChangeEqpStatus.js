@@ -67,7 +67,7 @@ const ChangeEqpStatus = (props) => {
       return checkList.map((val,index)=>{
   
         return(
-              <option key={index} value={val.checklist_name}>{val.checklist_name}</option>        
+              <option key={index} value={val.checklist_name} id={val.checklist_id}>{val.checklist_name}</option>        
         )
       }
       )
@@ -76,7 +76,10 @@ const ChangeEqpStatus = (props) => {
   }
 
   const handleSelectChange = event =>{
-    setselectedcheckListValues({value: Array.from(event.target.selectedOptions, (item) => item.value)});
+    setselectedcheckListValues({value: Array.from(event.target.selectedOptions, (item) => item.value),
+      checklistid: Array.from(event.target.selectedOptions, (item) => item.id),
+      eqp_id:props.eqp_id
+    },);
   }
   
   const triggerTPM= async (event)=> {
@@ -91,8 +94,7 @@ const ChangeEqpStatus = (props) => {
     });    
     const resstatus = await res.status;
     if(resstatus===200){
-      console.log('Checklist Trigger success')
-      
+      alert('Checklist Trigger success')  
     }
 }
 
