@@ -5,7 +5,6 @@ import fetch from 'isomorphic-unfetch';
 import moment from 'moment'
 
 import '../styles/styles.css'
-import {supportedParameter} from '../data/data'
 const Table = (props) =>{
     const sortOrder = ['msg_id','inserted_timestamp','eqp_id','svid_name','svid_value']
 

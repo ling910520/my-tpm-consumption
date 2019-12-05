@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import Link from 'next/link'
+import { useContext } from 'react';
+import UserContext from '../components/UserContext';
 
 const Navbar = () => {
-
+const {userFullName,signOut } = useContext(UserContext);
 const [burgerState,setBurgerState]= useState(false)
+const signUserOut = e =>{
+  e.preventDefault();
+  signOut()
+}
  return(
 <nav className="navbar is-spaced is-black" role="navigation" aria-label="main navigation">
   <div className="navbar-brand">
@@ -34,15 +40,20 @@ const [burgerState,setBurgerState]= useState(false)
             Raw Data
           </a>
         </Link>
-        <Link href='/profile'>
+        {/* <Link href='/profile'>
         <a className="navbar-item" >
             Profile
           </a>
-        </Link>
+        </Link> */}
         <a className="navbar-item" href='http://sgpfaapps01/TPMDatabase/Checklist/MainPage'>
             New TPM Databases
-          </a>
-
+        </a>
+        <a className="navbar-item">
+            Hello {userFullName}
+        </a>
+        <a className="navbar-item" onClick={signUserOut}>
+           SignOut
+        </a>
 
     </div>
   </div>
