@@ -49,6 +49,7 @@ const TriggerTPM = (props) => {
       body: JSON.stringify(selectedcheckListValues)
     });    
     const resstatus = await res.status;
+    setmodalState(!modalState)
     if(resstatus===200){
       alert('Checklist Trigger success')  
     }
