@@ -48,7 +48,6 @@ const Linecharts = (props) => {
         }else if(eqp_id.match(/SPT/g)){
              const  Ti = data.filter(row =>row.svid_name==='Ti')
              const  Cu = data.filter(row =>row.svid_name==='Cu')
-             const all =[{name:'Ti',data:Ti},{name:'Cu',data:Cu}]
             // const {eqp_id,svid_name} = Cu[0]
 
             return(
@@ -68,7 +67,7 @@ const Linecharts = (props) => {
                     >
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="inserted_timestamp"  tick={false}/>
-                        <YAxis  dataKey="svid_value" interval="preserveStartEnd"/>
+                        <YAxis   interval="preserveStartEnd"/>
             
 
                         <Tooltip />
@@ -76,8 +75,8 @@ const Linecharts = (props) => {
                         <ReferenceLine name="Ti Max" y={525} stroke="red"  ifOverflow="extendDomain" label ="Ti Max(525)"/>
                         <ReferenceLine name="Cu Max" y={300}  stroke="red"  ifOverflow="extendDomain" label ="Cu Max(300)"/>
 
-                        <Line  type="monotone" dataKey="svid_value"  data={Ti} name = "Ti"  stroke="blue" />
-                        <Line type="monotone" dataKey="svid_value"   data={Cu} name = "Cu" stroke="#b87333"  />
+                        <Line   dataKey="svid_value"  data={Ti} name = "Ti"  stroke="blue" key="Ti"/>
+                        <Line  dataKey="svid_value"   data={Cu} name = "Cu" stroke="#b87333"  key="Cu" />
 
                         {/* <Line type="monotone" dataKey="svid_value" name={svid_name} stroke="#8884d8" activeDot={{ r: 8 }} /> */}
                     </LineChart>

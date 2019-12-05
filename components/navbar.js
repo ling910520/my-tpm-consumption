@@ -34,6 +34,11 @@ const [burgerState,setBurgerState]= useState(false)
             Raw Data
           </a>
         </Link>
+        <Link href='/profile'>
+        <a className="navbar-item" >
+            Profile
+          </a>
+        </Link>
         <a className="navbar-item" href='http://sgpfaapps01/TPMDatabase/Checklist/MainPage'>
             New TPM Databases
           </a>
