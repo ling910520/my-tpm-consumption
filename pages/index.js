@@ -1,8 +1,6 @@
 import Layout from '../components/Layout'
 import Kanban from '../components/kanban'
 import '../styles/styles.css'
-import {returnedFromTool} from '../data/data'
-import orderBy from "lodash/orderBy";
 import fetch from 'isomorphic-unfetch';
 import Linecharts from '../components/Linecharts'
 
@@ -30,10 +28,8 @@ return(
 Home.getInitialProps = async function() {
   const res = await fetch('http://sgpatsprod01:4001/getrawdata');
   const returnedFromTool = await res.json();
-
   return {
-    returnedFromTool
-  };
+    returnedFromTool  };
 }
 export default Home;
 
