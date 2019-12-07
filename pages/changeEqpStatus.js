@@ -1,7 +1,6 @@
 import Layout from '../components/Layout'
 import ChangeEqpStatus from '../components/ChangeEqpStatus'
 import '../styles/styles.css'
-import { returnedFromTool } from '../data/data'
 
 
   
