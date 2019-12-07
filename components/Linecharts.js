@@ -11,8 +11,7 @@ import TriggerTPM from './TriggerTPM'
 const Linecharts = (props) => {
     const scale = 3
     const data = orderBy(props.unsortedData, ['msg_id'])
-    const { eqp_id, svid_name } = data[0]
-
+    const eqp_id  = data[0]['eqp_id'].toUpperCase()
     const renderEqpLimitCharts = () => {
 
         if (eqp_id.match(/DE/g)) {
@@ -57,13 +56,20 @@ const Linecharts = (props) => {
                 </div>
             )
         } else if (eqp_id.match(/SPT/g)) {
-            const Ti = data.filter(row => row.svid_name === 'Ti')
-            const Cu = data.filter(row => row.svid_name === 'Cu')
-            // const {eqp_id,svid_name} = Cu[0]
+
+            const Ti_Shield = data.filter(row => row.svid_name === 'Ti Shield')
+            const Ti_Target = data.filter(row => row.svid_name === 'Ti Target')
+            const Cu_Shield = data.filter(row => row.svid_name === 'Cu Shield')
+            const Cu_Target = data.filter(row => row.svid_name === 'Cu Target')
+            const Etch_Shield = data.filter(row => row.svid_name === 'Etch Shield')
+            const Etch_Quartz = data.filter(row => row.svid_name === 'Etch Quartz Shield')
+
 
             return (
                 <div>
                     <div className="columns">
+                    <div>
+                    </div>
                         <div className="column is-narrow">
                             <h1 className="is-capitalize has-text-weight-bold">{eqp_id}</h1>
                         </div>
@@ -86,17 +92,27 @@ const Linecharts = (props) => {
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="inserted_timestamp" tick={false} />
                                 <YAxis interval="preserveStartEnd" />
-
-
                                 <Tooltip />
                                 <Legend />
-                                <ReferenceLine name="Ti Max" y={525} stroke="red" ifOverflow="extendDomain" label="Ti Max(525)" />
-                                <ReferenceLine name="Cu Max" y={300} stroke="red" ifOverflow="extendDomain" label="Cu Max(300)" />
 
-                                <Line dataKey="svid_value" data={Ti} name="Ti" stroke="blue" key="Ti" />
-                                <Line dataKey="svid_value" data={Cu} name="Cu" stroke="#b87333" key="Cu" />
+                                {Ti_Target.length>0?<ReferenceLine name="Ti Target" y={parseInt(Ti_Target[0]['consumption_limit'])} stroke="red" ifOverflow="extendDomain" label={`Ti Target (${parseInt(Ti_Target[0]['consumption_limit'])})`}  />:''}
+                                {Ti_Target.length>0?<Line dataKey="svid_value" data={Ti_Target} name="Ti_Target" stroke="blue" key="Ti_Target" />:''}
 
-                                {/* <Line type="monotone" dataKey="svid_value" name={svid_name} stroke="#8884d8" activeDot={{ r: 8 }} /> */}
+                                {Ti_Shield.length>0?<ReferenceLine name="Ti Shield" y={parseInt(Ti_Shield[0]['consumption_limit'])} stroke="red" ifOverflow="extendDomain" label={`Ti Shield ${parseInt(Ti_Shield[0]['consumption_limit'])}`}  />:''}
+                                {Ti_Shield.length>0?<Line dataKey="svid_value" data={Ti_Shield} name="Ti_Shield" stroke="pink" key="Ti_Shield" />:''}
+
+                                {Cu_Target.length>0?<ReferenceLine name="Cu Target" y={parseInt(Cu_Target[0]['consumption_limit'])} stroke="red" ifOverflow="extendDomain" label={`Cu Target (${parseInt(Cu_Target[0]['consumption_limit'])})`}  />:''}
+                                {Cu_Target.length>0?<Line dataKey="svid_value" data={Cu_Target} name="Cu_Target" stroke="orange" key="Cu_Target" />:''}
+
+                                {Cu_Shield.length>0?<ReferenceLine name="Cu Shield" y={parseInt(Cu_Shield[0]['consumption_limit'])} stroke="red" ifOverflow="extendDomain" label={`Cu Shield ${parseInt(Cu_Shield[0]['consumption_limit'])}`}  />:''}
+                                {Cu_Shield.length>0?<Line dataKey="svid_value" data={Cu_Shield} name="Cu_Shield" stroke="yellow" key="Cu_Shield" />:''}
+
+                                {Etch_Shield.length>0?<ReferenceLine name="Etch_Shield" y={parseInt(Etch_Shield[0]['consumption_limit'])} stroke="red" ifOverflow="extendDomain" label={`Etch_Shield (${parseInt(Etch_Shield[0]['consumption_limit'])})`}  />:''}
+                                {Etch_Shield.length>0?<Line dataKey="svid_value" data={Etch_Shield} name="Etch_Shield" stroke="green" key="Etch_Shield" />:''}
+                               
+                                {Etch_Quartz.length>0?<ReferenceLine name="Etch_Quartz" y={parseInt(Etch_Quartz[0]['consumption_limit'])} stroke="red" ifOverflow="extendDomain" label={`Etch_Quartz (${parseInt(Etch_Quartz[0]['consumption_limit'])})`}  />:''}
+                                {Etch_Quartz.length>0?<Line dataKey="svid_value" data={Etch_Quartz} name="Etch_Quartz" stroke="grey" key="Etch_Quartz" />:''}
+
                             </LineChart>
                         </div>
                     </div>
@@ -110,6 +126,7 @@ const Linecharts = (props) => {
         <div>
             {renderEqpLimitCharts()}
         </div>
+
     )
 
 }
