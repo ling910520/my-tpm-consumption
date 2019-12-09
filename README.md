@@ -47,6 +47,9 @@ git rebase --continue
 ## git delete remote branch
 git push -d origin test1
 
+## git push branch to origin
+git push origin testfa
+
 # Docker 
 ## Dockerfile
 FROM node:10.13-alpine  
