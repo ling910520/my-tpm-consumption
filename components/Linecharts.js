@@ -1,5 +1,3 @@
-import Layout from './Layout'
-import Kanban from './kanban'
 import '../styles/styles.css'
 import orderBy from "lodash/orderBy";
 import {
@@ -7,14 +5,18 @@ import {
 } from 'recharts';
 import ChangeEqpStatus from './ChangeEqpStatus'
 import TriggerTPM from './TriggerTPM'
+import moment from 'moment'
 
 const Linecharts = (props) => {
     const scale = 3
     const data = orderBy(props.unsortedData, ['msg_id'])
     const eqp_id  = data[0]['eqp_id'].toUpperCase()
     const renderEqpLimitCharts = () => {
-
         if (eqp_id.match(/DE/g)) {
+            const {consumption_limit,svid_value,inserted_timestamp}=data[data.length-1]
+            const remainDays = (consumption_limit - parseFloat(svid_value))/8
+            const tpmForecast= moment(inserted_timestamp).add(remainDays.toFixed(),'days')
+
             return (
                 <div>
                     <div className="columns">
@@ -29,8 +31,12 @@ const Linecharts = (props) => {
 
                         <div className="column">
                             <TriggerTPM eqp_id={eqp_id}></TriggerTPM>
+                            <span className="tag is-info is-small is-rounded">TPM Forecast : {moment.utc(tpmForecast).format('YYYY-MM-DD')}</span>
                         </div>
+
                     </div>
+
+                    
                     <div className="columns">
                         <div className="column">
                             <LineChart
@@ -44,8 +50,8 @@ const Linecharts = (props) => {
                                 <Tooltip />
 
                                 <Legend />
-                                <ReferenceLine name="Max" y={110} stroke="red" ifOverflow="extendDomain" label="RF Max (110)" />
-                                <ReferenceLine name="Warning" y={99} stroke="orange" ifOverflow="extendDomain" label="RF Warning (99)" />
+                                <ReferenceLine name="Max" y={110} stroke="red" ifOverflow="extendDomain" label={`RF Max (${parseInt(data[0]['consumption_limit'])})`} />
+                                <ReferenceLine name="Warning" y={99} stroke="orange" ifOverflow="extendDomain" label={`RF Max (${parseInt(data[0]['consumption_limit'])*0.9})`} />
 
                                 <Line dataKey="svid_value" name="RF Hrs" stroke="#8884d8" activeDot={{ r: 8 }} />
 
@@ -71,7 +77,6 @@ const Linecharts = (props) => {
             {name: 'Etch_Shield', data:Etch_Shield},
             {name: 'Etch_Quartz', data:Etch_Quartz},
             ]
-
             return (
                 <div>
                     <div className="columns">
@@ -105,13 +110,13 @@ const Linecharts = (props) => {
                                 {Ti_Target.length>0?<ReferenceLine name="Ti Target" y={parseInt(Ti_Target[0]['consumption_limit'])} stroke="red" ifOverflow="extendDomain" label={`Ti Target (${parseInt(Ti_Target[0]['consumption_limit'])})`}  />:''}
                                 {Ti_Target.length>0?<Line dataKey="svid_value" data={series[1]['data']} name="Ti_Target" stroke="blue" key="Ti_Target" />:''}
 
-                                {Ti_Shield.length>0?<ReferenceLine name="Ti Shield" y={parseInt(Ti_Shield[0]['consumption_limit'])} stroke="red" ifOverflow="extendDomain" label={`Ti Shield ${parseInt(Ti_Shield[0]['consumption_limit'])}`}  />:''}
+                                {Ti_Shield.length>0?<ReferenceLine name="Ti Shield" y={parseInt(Ti_Shield[0]['consumption_limit'])} stroke="red" ifOverflow="extendDomain" label={`Ti Shield (${parseInt(Ti_Shield[0]['consumption_limit'])})`}  />:''}
                                 {Ti_Shield.length>0?<Line dataKey="svid_value" data={series[0]['data']} name="Ti_Shield" stroke="pink" key="Ti_Shield" />:''}
 
                                 {Cu_Target.length>0?<ReferenceLine name="Cu Target" y={parseInt(Cu_Target[0]['consumption_limit'])} stroke="red" ifOverflow="extendDomain" label={`Cu Target (${parseInt(Cu_Target[0]['consumption_limit'])})`}  />:''}
                                 {Cu_Target.length>0?<Line dataKey="svid_value" data={series[3]['data']} name="Cu_Target" stroke="orange" key="Cu_Target" />:''}
 
-                                {Cu_Shield.length>0?<ReferenceLine name="Cu Shield" y={parseInt(Cu_Shield[0]['consumption_limit'])} stroke="red" ifOverflow="extendDomain" label={`Cu Shield ${parseInt(Cu_Shield[0]['consumption_limit'])}`}  />:''}
+                                {Cu_Shield.length>0?<ReferenceLine name="Cu Shield" y={parseInt(Cu_Shield[0]['consumption_limit'])} stroke="red" ifOverflow="extendDomain" label={`Cu Shield (${parseInt(Cu_Shield[0]['consumption_limit'])})`}  />:''}
                                 {Cu_Shield.length>0?<Line dataKey="svid_value" data={series[2]['data']} name="Cu_Shield" stroke="yellow" key="Cu_Shield" />:''}
 
                                 {Etch_Shield.length>0?<ReferenceLine name="Etch_Shield" y={parseInt(Etch_Shield[0]['consumption_limit'])} stroke="red" ifOverflow="extendDomain" label={`Etch_Shield (${parseInt(Etch_Shield[0]['consumption_limit'])})`}  />:''}
