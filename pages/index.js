@@ -1,5 +1,4 @@
 import Layout from '../components/Layout'
-import Kanban from '../components/kanban'
 import '../styles/styles.css'
 import fetch from 'isomorphic-unfetch';
 import Linecharts from '../components/Linecharts'
