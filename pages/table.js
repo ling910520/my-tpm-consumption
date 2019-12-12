@@ -6,13 +6,14 @@ import moment from 'moment'
 
 import '../styles/styles.css'
 const Table = (props) =>{
-    const sortOrder = ['msg_id','inserted_timestamp','eqp_id','svid_name','svid_value']
+    const sortOrder = ['msg_id','inserted_timestamp','eqp_id','svid_name','svid_value','consumption_limit']
 
     const initialFormState = {msg_id:'',inserted_timestamp:'',eqp_id:'',svid_name:'' , svid_value: ''}
     const [toolDetail,settoolDetail] = useState(initialFormState)
 
     const header =Object.keys(props.returnedFromTool[0])
     header.sort(function(a,b){return sortOrder.indexOf(a)-sortOrder.indexOf(b)})
+    console.log(header)
     const [toolDetails, settoolDetails] = useState(props.returnedFromTool) // returned from tool 
     const distinctEqpId = [...new Set(props.returnedFromTool.map(x=>x.eqp_id))]
 
@@ -25,6 +26,8 @@ const Table = (props) =>{
         <td className="has-text-centered">{x.eqp_id}</td>
         <td className="has-text-centered">{x.svid_name}</td>
         <td className="has-text-centered">{x.svid_value}</td>
+        <td className="has-text-centered">{x.consumption_limit}</td>
+
         </tr>
         )
       })
