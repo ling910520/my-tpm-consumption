@@ -76,16 +76,16 @@ const Linecharts = (props) => {
             {name: 'Etch_Shield', data:Etch_Shield},
             {name: 'Etch_Quartz', data:Etch_Quartz},
             ]
-            const last_series = [{name: 'Ti_Shield', data:Ti_Shield[Ti_Shield.length-1]},
-            {name: 'Ti_Target', data:Ti_Target[Ti_Target.length-1]},
-            {name: 'Cu_Shield', data:Cu_Shield[Cu_Shield.length-1]},
-            {name: 'Cu_Target', data:Cu_Target[Cu_Target.length-1]},
-            {name: 'Etch_Shield', data:Etch_Shield[Etch_Shield.length-1]},
-            {name: 'Etch_Quartz', data:Etch_Quartz[Etch_Quartz.length-1]},
-            ]
-            //INSERT INTO PROMIS IF IT IS NOT NULL
-            // console.log(series[series.length-1])
-            //last_series.map(x=>console.log(x.data))
+
+            var i = 0 
+            var promisComment = ''
+            series.map(x=>{
+                if(x.data.length>0){
+                    promisComment = promisComment+'|'+x.name+':'+x.data[x.data.length-1]['svid_value']
+                    i++
+                }
+            })
+            const finalPromisComment =`|comment ${i+1}`+promisComment
             return (
                 <div>
                     <div className="columns">
@@ -95,7 +95,7 @@ const Linecharts = (props) => {
                             <h1 className="is-capitalize has-text-weight-bold">{eqp_id}</h1>
                         </div>
                         <div className="column ">
-                            <ChangeEqpStatus eqp_id={eqp_id}></ChangeEqpStatus>
+                            <ChangeEqpStatus eqp_id={eqp_id} finalPromisComment={finalPromisComment}></ChangeEqpStatus>
                         </div>
                     </div>
                     <div className="columns is-pulled-right">
