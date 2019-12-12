@@ -13,10 +13,9 @@ const Linecharts = (props) => {
     const eqp_id  = data[0]['eqp_id'].toUpperCase()
     const renderEqpLimitCharts = () => {
         if (eqp_id.match(/DE/g)) {
-            const {consumption_limit,svid_value,inserted_timestamp}=data[data.length-1]
+            const {consumption_limit,svid_value,inserted_timestamp,svid_name}=data[data.length-1]
             const remainDays = (consumption_limit - parseFloat(svid_value))/8
             const tpmForecast= moment(inserted_timestamp).add(remainDays.toFixed(),'days')
-
             return (
                 <div>
                     <div className="columns">
@@ -24,7 +23,7 @@ const Linecharts = (props) => {
                             <h1 className="is-capitalize has-text-weight-bold">{eqp_id}</h1>
                         </div>
                         <div className="column">
-                            <ChangeEqpStatus eqp_id={eqp_id}></ChangeEqpStatus>
+                            <ChangeEqpStatus eqp_id={eqp_id} svid_value ={svid_value} svid_name={svid_name}></ChangeEqpStatus>
                         </div>
                     </div>
                     <div className="columns is-pulled-right">
@@ -77,6 +76,16 @@ const Linecharts = (props) => {
             {name: 'Etch_Shield', data:Etch_Shield},
             {name: 'Etch_Quartz', data:Etch_Quartz},
             ]
+
+            var i = 0 
+            var promisComment = ''
+            series.map(x=>{
+                if(x.data.length>0){
+                    promisComment = promisComment+'|'+x.name+':'+x.data[x.data.length-1]['svid_value']
+                    i++
+                }
+            })
+            const finalPromisComment =`|comment ${i+1}`+promisComment
             return (
                 <div>
                     <div className="columns">
@@ -86,7 +95,7 @@ const Linecharts = (props) => {
                             <h1 className="is-capitalize has-text-weight-bold">{eqp_id}</h1>
                         </div>
                         <div className="column ">
-                            <ChangeEqpStatus eqp_id={eqp_id}></ChangeEqpStatus>
+                            <ChangeEqpStatus eqp_id={eqp_id} finalPromisComment={finalPromisComment}></ChangeEqpStatus>
                         </div>
                     </div>
                     <div className="columns is-pulled-right">

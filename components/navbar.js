@@ -13,7 +13,7 @@ const signUserOut = e =>{
  return(
 <nav className="navbar is-spaced is-black" role="navigation" aria-label="main navigation">
   <div className="navbar-brand">
-    <a className="navbar-item" href="https://bulma.io">
+    <a className="navbar-item" href="#">
         <img src="/imageedit_19_5338153406.png" width="112" height="28" alt="skyworkslogo"/>
     </a>
 
