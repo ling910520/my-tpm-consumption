@@ -58,7 +58,7 @@ const Table = (props) =>{
       if(value ==='Select Eqp'){
         settoolDetails([...props.returnedFromTool])
       }else{
-        settoolDetails(toolDetails.filter(toolDetail =>toolDetail.eqp_id===value))
+        settoolDetails(props.returnedFromTool.filter(toolDetail =>toolDetail.eqp_id===value))
       }
     }
 

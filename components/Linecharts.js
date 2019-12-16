@@ -8,7 +8,7 @@ import TriggerTPM from './TriggerTPM'
 import moment from 'moment'
 
 const Linecharts = (props) => {
-    const scale = 3
+    const scale = 2.5
     const data = orderBy(props.unsortedData, ['msg_id'])
     const eqp_id  = data[0]['eqp_id'].toUpperCase()
     const renderEqpLimitCharts = () => {
@@ -19,24 +19,18 @@ const Linecharts = (props) => {
             return (
                 <div>
                     <div className="columns">
+                    <div>
+                    </div>
                         <div className="column is-narrow">
                             <h1 className="is-capitalize has-text-weight-bold">{eqp_id}</h1>
                         </div>
                         <div className="column">
-                            <ChangeEqpStatus eqp_id={eqp_id} svid_value ={svid_value} svid_name={svid_name}></ChangeEqpStatus>
+                            <ChangeEqpStatus eqp_id={eqp_id}></ChangeEqpStatus>
                         </div>
                     </div>
-                    <div className="columns is-pulled-right">
-
-                        <div className="column">
-                            <TriggerTPM eqp_id={eqp_id}></TriggerTPM>
-                            <span className="tag is-info is-small is-rounded">TPM Forecast : {moment.utc(tpmForecast).format('YYYY-MM-DD')}</span>
-                        </div>
-
-                    </div>
-
-                    
+                        
                     <div className="columns">
+
                         <div className="column">
                             <LineChart
                                 width={scale * 200}
@@ -56,9 +50,14 @@ const Linecharts = (props) => {
 
                             </LineChart>
                         </div>
+                        <div className="column">
+                        
+                            <TriggerTPM eqp_id={eqp_id}></TriggerTPM>
+                            <span className="tag is-info is-small is-rounded">TPM Forecast : {moment.utc(tpmForecast).format('YYYY-MM-DD')}</span>
+                        </div>
+                    </div>
                     </div>
 
-                </div>
             )
         } else if (eqp_id.match(/SPT/g)) {
 
@@ -94,17 +93,13 @@ const Linecharts = (props) => {
                         <div className="column is-narrow">
                             <h1 className="is-capitalize has-text-weight-bold">{eqp_id}</h1>
                         </div>
-                        <div className="column ">
+                        <div className="column">
                             <ChangeEqpStatus eqp_id={eqp_id} finalPromisComment={finalPromisComment}></ChangeEqpStatus>
                         </div>
                     </div>
-                    <div className="columns is-pulled-right">
-           
-                        <div className="column">
-                            <TriggerTPM eqp_id={eqp_id}></TriggerTPM>
-                        </div>
-                    </div>
                     <div className="columns">
+           
+           
                         <div className="column">
                             <LineChart
                                 width={scale * 200}
@@ -135,6 +130,9 @@ const Linecharts = (props) => {
                                 {Etch_Quartz.length>0?<Line dataKey="svid_value" data={series[5]['data']} name="Etch_Quartz" stroke="grey" key="Etch_Quartz" />:''}
 
                             </LineChart>
+                        </div>
+                        <div className="column">
+                            <TriggerTPM eqp_id={eqp_id}></TriggerTPM>
                         </div>
                     </div>
 
