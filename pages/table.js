@@ -13,7 +13,6 @@ const Table = (props) =>{
 
     const header =Object.keys(props.returnedFromTool[0])
     header.sort(function(a,b){return sortOrder.indexOf(a)-sortOrder.indexOf(b)})
-    console.log(header)
     const [toolDetails, settoolDetails] = useState(props.returnedFromTool) // returned from tool 
     const distinctEqpId = [...new Set(props.returnedFromTool.map(x=>x.eqp_id))]
 
@@ -59,7 +58,7 @@ const Table = (props) =>{
       if(value ==='Select Eqp'){
         settoolDetails([...props.returnedFromTool])
       }else{
-        settoolDetails(toolDetails.filter(toolDetail =>toolDetail.eqp_id===value))
+        settoolDetails(props.returnedFromTool.filter(toolDetail =>toolDetail.eqp_id===value))
       }
     }
 

@@ -32,5 +32,3 @@ Home.getInitialProps = async function() {
 }
 export default Home;
 
-
-
