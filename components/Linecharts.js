@@ -66,7 +66,7 @@ const Linecharts = (props) => {
             const Cu_Shield = data.filter(row => row.svid_name === 'Cu Shield')
             const Cu_Target = data.filter(row => row.svid_name === 'Cu Target')
             const Etch_Shield = data.filter(row => row.svid_name === 'Etch Shield')
-            const Etch_Quartz = data.filter(row => row.svid_name === 'Etch Quartz Shield')
+            const Etch_Quartz = data.filter(row => row.svid_name === 'Etch Quartz')
             
             const series = [{name: 'Ti_Shield', data:Ti_Shield},
             {name: 'Ti_Target', data:Ti_Target},
