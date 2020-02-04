@@ -66,7 +66,7 @@ useEffect(()=>{
     <div className="columns">
       <div className="column">
       <button className="button is-info	is-small is-rounded" onClick={() =>(setmodalState(!modalState),getCheckListNames())}>
-        Unscheduled PM
+        Trigger TPM
       </button>
       <div className={`modal ${modalState ? 'is-active' : ''}`}>>
             <div className="modal-background"></div>
