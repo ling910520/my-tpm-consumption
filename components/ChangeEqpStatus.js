@@ -10,10 +10,10 @@ const ChangeEqpStatus = (props) => {
 
   const btnDownSubmit = async () =>{
     if(props.eqp_id.match(/SPT/g)){
-      var raw_data =`|USERID FGUSER|PWD Fab$Guard|EQPID ${props.eqp_id}|EQPSTAT PMDUE ${props.finalPromisComment}|down by ${userFullName}|END|`
+      var raw_data =`|USERID FGUSER|PWD Fab$Guard|EQPID ${props.eqp_id}|EQPSTAT OPS-PM ${props.finalPromisComment}|down by ${userFullName}|END|`
       // var raw_data=`|USERID FGUSER|PWD Fab$Guard|EQPID ${props.eqp_id}|EQPSTAT PMDUE|comment 2|Ti_Target:164.0387282055649|Cu_Target:104.16936501667139|END|`
     }else{
-      var raw_data =`|USERID FGUSER|PWD Fab$Guard|EQPID ${props.eqp_id}|EQPSTAT PMDUE|COMMENT 2|${props.svid_name} : ${props.svid_value}|down by ${userFullName}|END|`
+      var raw_data =`|USERID FGUSER|PWD Fab$Guard|EQPID ${props.eqp_id}|EQPSTAT OPS-PM|COMMENT 2|${props.svid_name} : ${props.svid_value}|down by ${userFullName}|END|`
     }
     console.log(raw_data)
     const res = await fetch('http://sgpatsprod01:4002/EQPSTATUS_UPDATE', {
