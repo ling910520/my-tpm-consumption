@@ -2,67 +2,28 @@ import fetch from 'isomorphic-unfetch';
 import React, { useState,useEffect} from 'react'
 import UserContext from '../components/UserContext';
 import { useContext } from 'react';
+import PromisComment from './PromisComment'
 
-const ChangeEqpStatus = (props) => {
+const ChangeEqpStatus =({eqp_id}) => {
   const {userFullName} = useContext(UserContext);
 
   const [status,setstatus] = useState(0)
+  const [promisActionState,setpromisActionState]= useState({})
 
-  const btnDownSubmit = async () =>{
-    if(props.eqp_id.match(/SPT/g)){
-      var raw_data =`|USERID FGUSER|PWD Fab$Guard|EQPID ${props.eqp_id}|EQPSTAT OPS-PM ${props.finalPromisComment}|down by ${userFullName}|END|`
-      // var raw_data=`|USERID FGUSER|PWD Fab$Guard|EQPID ${props.eqp_id}|EQPSTAT PMDUE|comment 2|Ti_Target:164.0387282055649|Cu_Target:104.16936501667139|END|`
-    }else{
-      var raw_data =`|USERID FGUSER|PWD Fab$Guard|EQPID ${props.eqp_id}|EQPSTAT OPS-PM|COMMENT 2|${props.svid_name} : ${props.svid_value}|down by ${userFullName}|END|`
-    }
-    console.log(raw_data)
-    const res = await fetch('http://sgpatsprod01:4002/EQPSTATUS_UPDATE', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/plain; charset=UTF-8'
-      },
-      body: raw_data
-    });
-    const result = await res.json()
-    if (result == 'SUCCESS'){
-      alert(`${props.eqp_id} status changes success`)
-      getCurrentToolStatus()
-    }else{
-      alert(`${props.eqp_id} status changes failed`)
-    }
-  }
-  const btnUpSubmit = async () =>{
-    const raw_data =`|USERID FGUSER|PWD Fab$Guard|EQPID ${props.eqp_id}|EQPSTAT AVAIL|COMMENT 2|${props.svid_name} : ${props.svid_value}|Up by ${userFullName}|END|`
 
-    const res = await fetch('http://sgpatsprod01:4002/EQPSTATUS_UPDATE', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/plain; charset=UTF-8'
-      },
-      body: raw_data
-    });
-    const result = await res.json()
-    if (result == 'SUCCESS'){
-      alert(`${props.eqp_id} status changes success`)
-      getCurrentToolStatus()
 
-    }else{
-      alert(`${props.eqp_id} status changes failed`)
-    }
-  }
-
-    const getCurrentToolStatus = async() => {
-      const raw_data =`|USERID FGUSER|PWD Fab$Guard|EQPID ${props.eqp_id}|SHOW EQPS.EQPID|SHOW EQPS.STATUS|SHOW EQPS.CHANGEDT|END|`
-      const res = await fetch('http://sgpatsprod01:4002/EQPSTATUS_EQPSLIST', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/plain; charset=UTF-8'
-      },
-      body: raw_data
-    })
-    const result = await res.json()
-    setstatus(result)
-  };
+  const getCurrentToolStatus = async() => {
+    const raw_data =`|USERID FGUSER|PWD Fab$Guard|EQPID ${eqp_id}|SHOW EQPS.EQPID|SHOW EQPS.STATUS|SHOW EQPS.CHANGEDT|END|`
+    const res = await fetch('http://sgpatsprod01:4002/EQPSTATUS_EQPSLIST', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'text/plain; charset=UTF-8'
+    },
+    body: raw_data
+  })
+  const result = await res.json()
+  setstatus(result)
+};
 
 
 useEffect(()=>{
@@ -77,16 +38,18 @@ useEffect(()=>{
       </div>
       </div>
       <div className="column is-narrow">
-      <button className="button is-success is-small is-rounded" onClick={btnUpSubmit}>
-        Up tool: {props.eqp_id}
+      <button className="button is-success is-small is-rounded" onClick={()=>setpromisActionState({state:!promisActionState.state,action:'qual'})}>
+        Qual tool: {eqp_id}
       </button>
       </div>
       <div className="column is-narrow">
-      <button className="button is-danger	is-small is-rounded" onClick={btnDownSubmit}>
-        Down tool: {props.eqp_id}
+      <button className="button is-danger	is-small is-rounded" onClick={()=>setpromisActionState({state:!promisActionState.state,action:'down'})}>
+        Down tool: {eqp_id}
       </button>
       </div>
-
+      <div className="column">
+              <PromisComment eqp_id={eqp_id} promisActionState={promisActionState} setpromisActionState={setpromisActionState} getCurrentToolStatus={getCurrentToolStatus}></PromisComment>
+        </div>
       </div>
 
     

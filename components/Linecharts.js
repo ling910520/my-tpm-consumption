@@ -76,15 +76,7 @@ const Linecharts = (props) => {
             {name: 'Etch_Quartz', data:Etch_Quartz},
             ]
 
-            var i = 0 
-            var promisComment = ''
-            series.map(x=>{
-                if(x.data.length>0){
-                    promisComment = promisComment+'|'+x.name+':'+x.data[x.data.length-1]['svid_value']
-                    i++
-                }
-            })
-            const finalPromisComment =`|comment ${i+1}`+promisComment
+
             return (
                 <div>
                     <div className="columns">
@@ -94,7 +86,7 @@ const Linecharts = (props) => {
                             <h1 className="is-capitalize has-text-weight-bold">{eqp_id}</h1>
                         </div>
                         <div className="column">
-                            <ChangeEqpStatus eqp_id={eqp_id} finalPromisComment={finalPromisComment}></ChangeEqpStatus>
+                            <ChangeEqpStatus eqp_id={eqp_id} ></ChangeEqpStatus>
                         </div>
                     </div>
                     <div className="columns">
