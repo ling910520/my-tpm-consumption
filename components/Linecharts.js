@@ -130,6 +130,33 @@ const Linecharts = (props) => {
 
                 </div>
             )
+        } else if (eqp_id.match(/CP/g)) {
+            const Cerma_Halogen_Lamp_Hrs = data.filter(row => row.svid_name === 'Cerma_Halogen_Lamp_Hrs')
+            return (
+                <div>
+                <div className="columns">
+                <div>
+                </div>
+                    <div className="column is-narrow">
+                        <h1 className="is-capitalize has-text-weight-bold">{eqp_id}</h1>
+                    </div>
+                    <div className="column">
+                        <ChangeEqpStatus eqp_id={eqp_id} ></ChangeEqpStatus>
+                    </div>
+                </div>
+                <div className="columns">
+       
+       
+                    <div className="column">
+
+                    </div>
+                    <div className="column">
+                        <TriggerTPM eqp_id={eqp_id}></TriggerTPM>
+                    </div>
+                </div>
+
+            </div>
+            )
         }
     }
 
