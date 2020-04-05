@@ -43,8 +43,8 @@ const Linecharts = (props) => {
                                 <Tooltip />
 
                                 <Legend />
-                                <ReferenceLine name="Max" y={110} stroke="red" ifOverflow="extendDomain" label={`RF Max (${parseInt(data[0]['consumption_limit'])})`} />
-                                <ReferenceLine name="Warning" y={99} stroke="orange" ifOverflow="extendDomain" label={`RF Max (${parseInt(data[0]['consumption_limit'])*0.9})`} />
+                                <ReferenceLine name="Max" y={400} stroke="red" ifOverflow="extendDomain" label={`RF Max (${parseInt(data[0]['consumption_limit'])})`} />
+                                <ReferenceLine name="Warning" y={360} stroke="orange" ifOverflow="extendDomain" label={`RF Max (${parseInt(data[0]['consumption_limit'])*0.9})`} />
 
                                 <Line dataKey="svid_value" name="RF Hrs" stroke="#8884d8" activeDot={{ r: 8 }} />
 
