@@ -32,25 +32,6 @@ const Table = (props) =>{
       })
     }
 
-
-    // function for adding new data to db 
-    const handleSubmit = toolDetail =>{
-      const res = fetch('http://sgpatsprod01:4001/adddata', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(toolDetail)
-      });
-
-    }
-    // function for setting form data when form data change
-    const handleSelectChange = event =>{
-      const { name, value } = event.target
-      settoolDetail({ ...toolDetail, [name]: value })
-    }
-
     // function for handle user change filter parameter
     const handleInputChange = event => {
       event.preventDefault()
@@ -68,67 +49,7 @@ return(
 
     <div className="columns is-centered" id='tablecontainer'>
     <div className="column is-narrow"></div>
-    {/* <div className="column is-narrow">
-    <div className="field is-grouped">
-          <div className="content">
-            <form
-              onSubmit={event => {
-                event.preventDefault()
-                // if (!toolDetail.eqp_id || !toolDetail.parameter_name || !toolDetail.parameter_value) return
-                handleSubmit(toolDetail)
-                addToolDetails(toolDetail)
-                settoolDetail(initialFormState)
-                // console.log(toolDetail)
 
-              }}
-            >
-              <div className="field">
-                <label className="label">Eqp ID</label>
-                  <div className="control">
-                  <input className="input" type="text" name="eqp_id" value={toolDetail.eqp_id} onChange={handleSelectChange} list="eqp_id"/>
-                  <datalist id="eqp_id">
-                  {
-                    distinctEqpId.map((item,key)=>(
-                      <option key={key} value ={item.eqp_id}/>
-                    ))
-                  }
-                  </datalist>
-                  </div>
-              </div>
-              <div className="field">
-                <label className="label">Parameter Name</label>
-                <div className="control">
-                <input className="input" type="text" name="parameter_name" value={toolDetail.parameter_name} onChange={handleSelectChange} list="parameter_name"/>
-                  <datalist id="parameter_name">
-                  {
-                    supportedParameter.map((item,key)=>(
-                      <option key={key} value ={item.parameter_name}/>
-                    ))
-                  }
-                  </datalist>
-                  </div>
-              </div>
-              <div className="field">
-                <label className="label">Parameter Values</label>
-                <div className="control">
-                    <input className="input" type="text" name="parameter_value" value={toolDetail.parameter_value} onChange={handleSelectChange} />
-                    </div>
-              </div>
-              <div className="field">
-                <label className="label">Parameter Limit</label>
-                <div className="control">
-                    <input className="input" type="text" name="parameter_limit" value={toolDetail.parameter_limit} onChange={handleSelectChange} />
-                    </div>
-              </div>
-              <div className="field">
-              <div className="control">
-                <button className="button is-primary">Add new data</button>
-                </div>
-              </div>
-            </form>
-          </div>
-          </div>
-      </div> */}
       <div className="column notification ">
       <div className="columns">
                 <div className="column is-narrow">

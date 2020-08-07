@@ -157,6 +157,47 @@ const Linecharts = (props) => {
 
             </div>
             )
+        }else if (eqp_id.match(/UE/g)){
+            return (
+
+                <div>
+                    <div className="columns">
+                    <div>
+                    </div>
+                        <div className="column is-narrow">
+                            <h1 className="is-capitalize has-text-weight-bold">{eqp_id}</h1>
+                        </div>
+                        <div className="column">
+                            {/* <ChangeEqpStatus eqp_id={eqp_id} ></ChangeEqpStatus> */}
+                        </div>
+                    </div>
+                    <div className="columns">
+           
+           
+                        <div className="column">
+                            <LineChart
+                                width={scale * 200}
+                                height={scale * 100}
+                                data={data}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="msg_id" tick={false} type="category" allowDuplicatedCategory={false} />
+                                <YAxis interval="preserveStartEnd" />
+                                <Tooltip />
+                                <ReferenceLine name="Warning" y={2.5} stroke="orange" ifOverflow="extendDomain" label={`Ghost Check Max 2.5)`} />
+
+                                <Line dataKey="svid_value" name="Ghost Check" stroke="#8884d8" activeDot={{ r: 8 }} />
+
+                               
+                            </LineChart>
+                        </div>
+                        <div className="column">
+                            {/* <TriggerTPM eqp_id={eqp_id}></TriggerTPM> */}
+                        </div>
+                    </div>
+
+                </div>
+            )
         }
     }
 
