@@ -35,6 +35,11 @@ const signUserOut = e =>{
             Summary
           </a>
         </Link>
+        <Link href='/UE'>
+        <a className="navbar-item" >
+            UE
+          </a>
+        </Link>
       <Link href='/table'>
         <a className="navbar-item" >
             Raw Data

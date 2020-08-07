@@ -13,9 +13,11 @@ return(
       {
         distinctEqpId.map((val,index)=>{
           const unsortedData = dataFromTool.filter(row =>row.eqp_id===val)
-          return (
+          if(val.substr(0,2)!=='UE'){
+        return (
             <Linecharts unsortedData = {unsortedData} key={index}></Linecharts> 
           )
+          }
         })
       }
       </div>

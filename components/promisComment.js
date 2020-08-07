@@ -11,7 +11,6 @@ const PromisComment = ({eqp_id,promisActionState,setpromisActionState,getCurrent
   const [eqpComment,setEqpComment] = useState('');
   
   const btnDownSubmit = async () =>{
-    console.log(eqpComment)
     let raw_data =`|USERID FGUSER|PWD Fab$Guard|EQPID ${eqp_id}|EQPSTAT OPS-PM|COMMENT 2|${eqpComment}|PM by ${userFullName}|END|`
     
     const res = await fetch('http://sgpatsprod01:4002/EQPSTATUS_UPDATE', {
@@ -31,7 +30,6 @@ const PromisComment = ({eqp_id,promisActionState,setpromisActionState,getCurrent
     }
   }
   const btnUpSubmit = async () =>{
-    console.log(eqpComment)
 
     let raw_data =`|USERID FGUSER|PWD Fab$Guard|EQPID ${eqp_id}|EQPSTAT QUAL|COMMENT 2|${eqpComment}|Qual by ${userFullName}|END|`
 

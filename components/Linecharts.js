@@ -1,7 +1,7 @@
 import '../styles/styles.css'
 import orderBy from "lodash/orderBy";
 import {
-    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine, Label
+    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine, Label,ResponsiveContainer,LabelList
 } from 'recharts';
 import ChangeEqpStatus from './ChangeEqpStatus'
 import TriggerTPM from './TriggerTPM'
@@ -158,8 +158,18 @@ const Linecharts = (props) => {
             </div>
             )
         }else if (eqp_id.match(/UE/g)){
-            const HG = data.filter(row => row.svid_name.split(/[()]/)[1]==="HG")
-            const IHG = data.filter(row => row.svid_name.split(/[()]/)[1]==="IHG")
+            const datasource =data.map(item=>{
+                return {
+                    ...item,
+                    label:item.svid_name.split('(',)[0]
+                    // svid_name: item.svid_name.substr(0,svid_name.length-5)  // replace the email addr
+
+                }
+            }
+            )
+
+            const HG = datasource.filter(row => row.svid_name.split(/[()]/)[1]==="HG")
+            const IHG = datasource.filter(row => row.svid_name.split(/[()]/)[1]==="IHG")
 
             
             const series = [{name: 'HG', data:HG},
@@ -167,6 +177,7 @@ const Linecharts = (props) => {
 
             ]
             return (
+<ResponsiveContainer width={700} height="80%">
 
                 <div>
                     <div className="columns">
@@ -189,12 +200,16 @@ const Linecharts = (props) => {
                                 data={data}
                             >
                                 <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="msg_id" tick={false} type="category" allowDuplicatedCategory={false} />
+                                <XAxis dataKey="label" tick={false} type="category" allowDuplicatedCategory={false} />
                                 <YAxis interval="preserveStartEnd" />
                                 <Tooltip />
                                 <ReferenceLine name="Warning" y={2.5} stroke="orange" ifOverflow="extendDomain" label={`Ghost Check Max 2.5)`} />
 
-                                {IHG.length>0?<Line dataKey="svid_value" data={series[1]['data']} name="IHG" stroke="blue" key="IHG" />:''}
+                                {IHG.length>0?<Line dataKey="svid_value" data={series[1]['data']} name="IHG" stroke="blue" key="IHG" >
+                                    {/* <LabelList dataKey="label" position="insideTop" angle="45"  /> */}
+
+                                </Line>
+                                :''}
                                 {HG.length>0?<Line dataKey="svid_value" data={series[0]['data']} name="HG" stroke="yellow" key="HG" />:''}
 
                             </LineChart>
@@ -205,6 +220,8 @@ const Linecharts = (props) => {
                     </div>
 
                 </div>
+                </ResponsiveContainer>
+
             )
         }
     }
