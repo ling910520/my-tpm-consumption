@@ -158,6 +158,14 @@ const Linecharts = (props) => {
             </div>
             )
         }else if (eqp_id.match(/UE/g)){
+            const HG = data.filter(row => row.svid_name.split(/[()]/)[1]==="HG")
+            const IHG = data.filter(row => row.svid_name.split(/[()]/)[1]==="IHG")
+
+            
+            const series = [{name: 'HG', data:HG},
+            {name: 'IHG', data:IHG},
+
+            ]
             return (
 
                 <div>
@@ -186,9 +194,9 @@ const Linecharts = (props) => {
                                 <Tooltip />
                                 <ReferenceLine name="Warning" y={2.5} stroke="orange" ifOverflow="extendDomain" label={`Ghost Check Max 2.5)`} />
 
-                                <Line dataKey="svid_value" name="Ghost Check" stroke="#8884d8" activeDot={{ r: 8 }} />
+                                {IHG.length>0?<Line dataKey="svid_value" data={series[1]['data']} name="IHG" stroke="blue" key="IHG" />:''}
+                                {HG.length>0?<Line dataKey="svid_value" data={series[0]['data']} name="HG" stroke="yellow" key="HG" />:''}
 
-                               
                             </LineChart>
                         </div>
                         <div className="column">
