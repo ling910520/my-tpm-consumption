@@ -30,12 +30,12 @@ const signUserOut = e =>{
     </div>
 
     <div className="navbar-end">
-    <Link href='/index'>
+    <Link href='/'>
         <a className="navbar-item" >
             Summary
           </a>
         </Link>
-        <Link href='/UE'>
+        <Link href='/ue'>
         <a className="navbar-item" >
             UE
           </a>
@@ -55,9 +55,6 @@ const signUserOut = e =>{
         </a>
         <a className="navbar-item">
             Hello {userFullName}
-        </a>
-        <a className="navbar-item" onClick={signUserOut}>
-           SignOut
         </a>
 
     </div>

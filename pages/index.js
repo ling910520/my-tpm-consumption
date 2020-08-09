@@ -3,9 +3,9 @@ import '../styles/styles.css'
 import fetch from 'isomorphic-unfetch';
 import Linecharts from '../components/Linecharts'
 
-const Home = (props) =>{
-const dataFromTool = props.returnedFromTool
-const distinctEqpId = [...new Set(props.returnedFromTool.map(row=>row.eqp_id))]
+const Home = ({returnedFromTool}) =>{
+const dataFromTool = returnedFromTool
+const distinctEqpId = [...new Set(returnedFromTool.map(row=>row.eqp_id))]
 return(
     <Layout>
     <section className="container cards-container">
@@ -26,11 +26,18 @@ return(
 )
 }
 
-Home.getInitialProps = async function() {
-  const res = await fetch('http://sgpatsprod01:4001/getrawdata');
+export async function getStaticProps(){
+  const res = await fetch("http://sgpatsprod01:4001/getrawdata");
   const returnedFromTool = await res.json();
   return {
-    returnedFromTool  };
-}
+    props:{
+      returnedFromTool
+    },
+    revalidate:1,
+
+  };
+};
+
+
 export default Home;
 

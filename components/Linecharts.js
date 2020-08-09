@@ -177,50 +177,48 @@ const Linecharts = (props) => {
 
             ]
             return (
-<ResponsiveContainer width={700} height="80%">
 
-                <div>
-                    <div className="columns">
-                    <div>
-                    </div>
-                        <div className="column is-narrow">
-                            <h1 className="is-capitalize has-text-weight-bold">{eqp_id}</h1>
+                    <div className="column">
+                        <div className="columns is-narrow">
+
+                            <div className="column">
+                                <h1 className="is-capitalize has-text-weight-bold">{eqp_id}</h1>
+                            </div>
+                            <ResponsiveContainer width={600} height="80%">
+
+                            <div className="column">
+                                <LineChart
+                                    width={scale * 200}
+                                    height={scale * 100}
+                                    data={data}
+                                >
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="label" tick={false} type="category" allowDuplicatedCategory={false} />
+                                    <YAxis interval="preserveStartEnd" />
+                                    <Tooltip />
+                                    <ReferenceLine name="Warning" y={2.5} stroke="orange" ifOverflow="extendDomain" label={`Ghost Check Max 2.5)`} />
+
+                                    {IHG.length>0?<Line dataKey="svid_value" data={series[1]['data']} name="IHG" stroke="blue" key="IHG" >
+                                        {/* <LabelList dataKey="label" position="insideTop" angle="45"  /> */}
+
+                                    </Line>
+                                    :''}
+                                    {HG.length>0?<Line dataKey="svid_value" data={series[0]['data']} name="HG" stroke="yellow" key="HG" />:''}
+
+                                </LineChart>
+
+                            </div>
+                            </ResponsiveContainer>
+
                         </div>
-                        <div className="column">
-                            {/* <ChangeEqpStatus eqp_id={eqp_id} ></ChangeEqpStatus> */}
-                        </div>
                     </div>
-                    <div className="columns">
+
+
+
            
-           
-                        <div className="column">
-                            <LineChart
-                                width={scale * 200}
-                                height={scale * 100}
-                                data={data}
-                            >
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="label" tick={false} type="category" allowDuplicatedCategory={false} />
-                                <YAxis interval="preserveStartEnd" />
-                                <Tooltip />
-                                <ReferenceLine name="Warning" y={2.5} stroke="orange" ifOverflow="extendDomain" label={`Ghost Check Max 2.5)`} />
 
-                                {IHG.length>0?<Line dataKey="svid_value" data={series[1]['data']} name="IHG" stroke="blue" key="IHG" >
-                                    {/* <LabelList dataKey="label" position="insideTop" angle="45"  /> */}
 
-                                </Line>
-                                :''}
-                                {HG.length>0?<Line dataKey="svid_value" data={series[0]['data']} name="HG" stroke="yellow" key="HG" />:''}
 
-                            </LineChart>
-                        </div>
-                        <div className="column">
-                            {/* <TriggerTPM eqp_id={eqp_id}></TriggerTPM> */}
-                        </div>
-                    </div>
-
-                </div>
-                </ResponsiveContainer>
 
             )
         }

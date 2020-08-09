@@ -4,10 +4,26 @@ import Router from 'next/router';
 import UserContext from '../components/UserContext';
 import fetch from 'isomorphic-unfetch'
 
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 
+NProgress.configure({ showSpinner: false, trickleRate: 0.1, trickleSpeed: 300 });
+
+Router.events.on('routeChangeStart', () => {
+    NProgress.start() 
+})
+
+Router.events.on('routeChangeComplete', () => {
+    NProgress.done();
+})
+
+Router.events.on('routeChangeError', () => {
+    NProgress.done();
+})
 export default class MyApp extends App {
   state = {
     user: null,

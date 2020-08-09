@@ -104,15 +104,27 @@ return(
     </Layout>
 )
 }
-
-Table.getInitialProps = async function() {
-  const res = await fetch('http://sgpatsprod01:4001/getrawdata');
+export async function getStaticProps(){
+  const res = await fetch("http://sgpatsprod01:4001/getrawdata");
   const returnedFromTool = await res.json();
-
   return {
-    returnedFromTool
+    props:{
+      returnedFromTool
+    },
+    revalidate:1,
   };
-}
+};
+
+
+
+// Table.getInitialProps = async function() {
+//   const res = await fetch('http://sgpatsprod01:4001/getrawdata');
+//   const returnedFromTool = await res.json();
+
+//   return {
+//     returnedFromTool
+//   };
+// }
 export default Table;
 
 
