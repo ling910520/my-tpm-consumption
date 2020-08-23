@@ -3,7 +3,6 @@ import App from 'next/app';
 import Router from 'next/router';
 import UserContext from '../components/UserContext';
 import fetch from 'isomorphic-unfetch'
-
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 

@@ -28,7 +28,7 @@ const signUserOut = e =>{
     <div className="navbar-start">
 
     </div>
-
+   
     <div className="navbar-end">
     <Link href='/'>
         <a className="navbar-item" >
@@ -40,6 +40,38 @@ const signUserOut = e =>{
             UE
           </a>
         </Link>
+        <div className="navbar-item has-dropdown is-hoverable">
+        <a className="navbar-link">
+          Overlay
+        </a>
+
+        <div className="navbar-dropdown">
+        <Link href='/cavity'>
+          <a className="navbar-item">
+            Cavity
+          </a>
+          </Link>
+          <Link href='/roof'>
+
+          <a className="navbar-item">
+            Roof
+          </a>
+          </Link>
+          <Link href='/buffer'>
+
+          <a className="navbar-item">
+            Buffer
+          </a>
+          </Link>
+          <Link href='/plate'>
+
+          <a className="navbar-item">
+            Plate
+          </a>
+          </Link>
+
+        </div>
+    </div>        
       <Link href='/table'>
         <a className="navbar-item" >
             Raw Data
