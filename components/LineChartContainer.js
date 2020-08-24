@@ -17,6 +17,9 @@ import moment from "moment";
 
 const LinechartsContainer = ({data,lcl,ucl,usl,lsl,cl,chart}) => {
     const scale = 2.5
+
+
+
     const chartTitle = ()=>{
         if(chart =='x_offset'){
             return 'X-offset'
@@ -39,7 +42,8 @@ const LinechartsContainer = ({data,lcl,ucl,usl,lsl,cl,chart}) => {
 
   return (
 <>
-    <h1 className="is-capitalize has-text-weight-bold">{chartTitle()}</h1>
+
+<h1 className="is-capitalize has-text-weight-bold">{chartTitle()}</h1>
 
         <ResponsiveContainer width={600} height="80%">
           <div className="column">

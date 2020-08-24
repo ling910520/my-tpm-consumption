@@ -7,11 +7,13 @@ import * as uuid from "uuid";
 import { string } from "prop-types";
 import LinechartsContainer from "../components/LineChartContainer";
 import RangechartContainer from "../components/RangechartContainer";
-
+import {useState, useEffect} from 'react'
 export interface Data{
 
   shift: string,
   LotID: string,
+  CR: string,
+  Eqp: string,
   x_offset:string,
   y_offset:string,
   r_x_offset:string,
@@ -74,50 +76,110 @@ const overlay = ({ data }: Props ) => {
   const Magnification_chart = limit.filter(x=> x.tab===data[0].tab && x.chart ==='Magnification')[0]
   const xoffset_pts3_chart = limit.filter(x=> x.tab===data[0].tab && x.chart ==='xoffset_pts3')[0]
   const yoffset_pts3_chart = limit.filter(x=> x.tab===data[0].tab && x.chart ==='yoffset_pts3')[0]  
+
+
+  const [filterdata,setFilteredData] = useState(data);
+
+  // const [distinctEqpId,setdistinctEqpId] = useState([...new Set(data.map(x=>x.Eqp))]);
+  const [distinctEqpId,setdistinctEqpId] = useState([...new Set(data.map(x=>x.Eqp))]);
+
+  const [CR,setCR] = useState([...new Set(data.map(x=>x.CR))]);
+
+    // function for handle user change filter parameter
+    const handleEqpInputChange = event => {
+      event.preventDefault()
+      const { value } = event.target
+      if(value ==='Select Eqp'){
+        setFilteredData([...data])
+      }else{
+        setFilteredData(data.filter(x =>x.Eqp===value))
+      }
+    }
+    const handleCRInputChange = event => {
+      event.preventDefault()
+      const { value } = event.target
+      if(value ==='Select CR'){
+        setFilteredData([...data])
+
+      }else{
+        setFilteredData(data.filter(x =>x.CR===value))
+        const reset = data.filter(x =>x.CR===value)
+        setdistinctEqpId([...new Set(reset.map(x=>x.Eqp))])
+
+      }
+    }
+
+    
   return (
     <Layout>
       <div>
         <h1 className="title has-text-centered is-capitalized">{data[0].tab}</h1>
-      </div>
+        <div className="columns mx-2">
+            <div className="column is-narrow">
+            <div className="select is-info">
+                          <select onChange={handleCRInputChange}>
+                          <option value="Select CR">Select CR </option>
+                          {
+                          CR.sort().map((item,key)=>(
+                          <option value={item} key={key}>{item}</option>
+                          ))
+                          }
+                          </select>     
+            </div>
+            </div>
+            <div className="column">
+            <div className="select is-info">
+                          <select onChange={handleEqpInputChange}>
+                          <option value="Select Eqp">Select Eqp </option>
+                          {
+                          distinctEqpId.sort().map((item,key)=>(
+                          <option value={item} key={key}>{item}</option>
+                          ))
+                          }
+                          </select>     
+            </div>
+            </div>
 
-      <div className="columns">
+      </div>
+      </div>
+      <div className="columns mx-2">
 
         <div className="column">
-          <LinechartsContainer data={data} chart = {"x_offset"} usl = {x_offset_chart.usl} lsl = {x_offset_chart.lsl} cl = {x_offset_chart.cl} ucl = {x_offset_chart.ucl} lcl ={x_offset_chart.lcl}></LinechartsContainer>
+          <LinechartsContainer data={filterdata} chart = {"x_offset"} usl = {x_offset_chart.usl} lsl = {x_offset_chart.lsl} cl = {x_offset_chart.cl} ucl = {x_offset_chart.ucl} lcl ={x_offset_chart.lcl}></LinechartsContainer>
         </div>
         <div className="column">
-          <LinechartsContainer data={data} chart = {"y_offset"} usl = {y_offset_chart.usl} lsl = {y_offset_chart.lsl} cl = {y_offset_chart.cl} ucl = {y_offset_chart.ucl} lcl ={y_offset_chart.lcl}></LinechartsContainer>
+          <LinechartsContainer data={filterdata} chart = {"y_offset"} usl = {y_offset_chart.usl} lsl = {y_offset_chart.lsl} cl = {y_offset_chart.cl} ucl = {y_offset_chart.ucl} lcl ={y_offset_chart.lcl}></LinechartsContainer>
         </div>
 
       </div>
 
-      <div className="columns">
+      <div className="columns mx-2">
         <div className="column">
-            <RangechartContainer data={data} chart = {"r_x_offset"} usl = {r_x_offset_chart.usl}  ucl = {r_x_offset_chart.ucl} lcl ={r_x_offset_chart.lcl}></RangechartContainer>
+            <RangechartContainer data={filterdata} chart = {"r_x_offset"} usl = {r_x_offset_chart.usl}  ucl = {r_x_offset_chart.ucl} lcl ={r_x_offset_chart.lcl}></RangechartContainer>
           </div>
         <div className="column">
-          <RangechartContainer data={data} chart = {"r_y_offset"} usl = {r_y_offset_chart.usl} ucl = {r_y_offset_chart.ucl} lcl ={r_y_offset_chart.lcl}></RangechartContainer>
+          <RangechartContainer data={filterdata} chart = {"r_y_offset"} usl = {r_y_offset_chart.usl} ucl = {r_y_offset_chart.ucl} lcl ={r_y_offset_chart.lcl}></RangechartContainer>
         </div>
 
       </div>
 
-      <div className="columns">
+      <div className="columns mx-2">
         <div className="column">
-            <RangechartContainer data={data} chart = {"Rotation"} usl = {Rotation_chart.usl}  ucl = {Rotation_chart.ucl} lcl ={Rotation_chart.lcl}></RangechartContainer>
+            <RangechartContainer data={filterdata} chart = {"Rotation"} usl = {Rotation_chart.usl}  ucl = {Rotation_chart.ucl} lcl ={Rotation_chart.lcl}></RangechartContainer>
           </div>
         <div className="column">
-          <RangechartContainer data={data} chart = {"Magnification"}  usl = {Magnification_chart.usl}  ucl = {Magnification_chart.ucl} lcl ={Magnification_chart.lcl}></RangechartContainer>
+          <RangechartContainer data={filterdata} chart = {"Magnification"}  usl = {Magnification_chart.usl}  ucl = {Magnification_chart.ucl} lcl ={Magnification_chart.lcl}></RangechartContainer>
         </div>
 
       </div>
 
 
-      <div className="columns">
+      <div className="columns mx-2">
         <div className="column">
-          <LinechartsContainer data={data} chart = {"xoffset_pts3"} usl = {xoffset_pts3_chart.usl} lsl = {xoffset_pts3_chart.lsl} cl = {xoffset_pts3_chart.cl} ucl = {xoffset_pts3_chart.ucl} lcl ={xoffset_pts3_chart.lcl}></LinechartsContainer>
+          <LinechartsContainer data={filterdata} chart = {"xoffset_pts3"} usl = {xoffset_pts3_chart.usl} lsl = {xoffset_pts3_chart.lsl} cl = {xoffset_pts3_chart.cl} ucl = {xoffset_pts3_chart.ucl} lcl ={xoffset_pts3_chart.lcl}></LinechartsContainer>
         </div>
         <div className="column">
-          <LinechartsContainer data={data} chart = {"yoffset_pts3"} usl = {yoffset_pts3_chart.usl} lsl = {yoffset_pts3_chart.lsl} cl = {yoffset_pts3_chart.cl} ucl = {yoffset_pts3_chart.ucl} lcl ={yoffset_pts3_chart.lcl}></LinechartsContainer>
+          <LinechartsContainer data={filterdata} chart = {"yoffset_pts3"} usl = {yoffset_pts3_chart.usl} lsl = {yoffset_pts3_chart.lsl} cl = {yoffset_pts3_chart.cl} ucl = {yoffset_pts3_chart.ucl} lcl ={yoffset_pts3_chart.lcl}></LinechartsContainer>
         </div>
 
       </div>
@@ -143,8 +205,10 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     }
 }
   const SQL = `select 
-shift,
-LotID
+shift
+,LotID
+,[CR]
+,UPPER([Eqp]) as Eqp
 ,[x-offset] as x_offset
 ,[y-offset] as y_offset
 ,[r-x-offset] as r_x_offset
