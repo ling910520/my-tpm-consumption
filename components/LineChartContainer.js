@@ -18,7 +18,7 @@ import moment from "moment";
 const LinechartsContainer = ({data,lcl,ucl,usl,lsl,cl,chart}) => {
     const scale = 2.5
 
-
+  
 
     const chartTitle = ()=>{
         if(chart =='x_offset'){
@@ -55,42 +55,43 @@ const LinechartsContainer = ({data,lcl,ucl,usl,lsl,cl,chart}) => {
               <Tooltip />
               <Legend />
 
-              <ReferenceLine
+              {usl?<ReferenceLine
                 name="Warning"
                 y={usl}
                 stroke="red"
                 ifOverflow="extendDomain"
                 label = "usl"
-              />
-            <ReferenceLine
+              />:<></>}
+            {lsl?<ReferenceLine
                 name="Warning"
                 y={lsl}
                 stroke="red"
                 ifOverflow="extendDomain"
                 label="lsl"
-              />
-                          <ReferenceLine
+              />:<></>}
+              {ucl?<ReferenceLine
                 name="Warning"
                 y={ucl}
                 stroke="yellow"
                 ifOverflow="extendDomain"
                 label="ucl"
-              />
-            <ReferenceLine
+              />:<></>}
+            {lcl?<ReferenceLine
                 name="Warning"
                 y={lcl}
                 stroke="yellow"
                 ifOverflow="extendDomain"
                 label="lcl"
-              />
-              <ReferenceLine
+              />:<></>}
+            {cl?<ReferenceLine
                 name="Warning"
                 y={cl}
                 stroke="yellow"
                 ifOverflow="extendDomain"
                 label="cl"
                 strokeDasharray="5 5" 
-              />
+              />:<></>}
+
             <Line dataKey={chart} name={chartTitle()} type="monotone" />
 
             </LineChart>
