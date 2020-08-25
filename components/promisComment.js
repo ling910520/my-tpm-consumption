@@ -66,7 +66,7 @@ const PromisComment = ({eqp_id,promisActionState,setpromisActionState,getCurrent
     <div className="columns">
       <div className="column">
 
-      <div className={`modal ${promisActionState.state ? 'is-active' : ''}`}>>
+      <div className={`modal ${promisActionState.state ? 'is-active' : ''}`}>
             <div className="modal-background"></div>
             <div className="modal-card">
               <header className="modal-card-head">

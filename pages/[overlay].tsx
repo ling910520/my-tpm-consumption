@@ -6,14 +6,14 @@ import { GetServerSideProps } from "next";
 import * as uuid from "uuid";
 import { string } from "prop-types";
 import LinechartsContainer from "../components/LineChartContainer";
-import RangechartContainer from "../components/RangechartContainer";
-import {useState, useEffect} from 'react'
+import {useState, useEffect, SyntheticEvent, useRef} from 'react'
 export interface Data{
 
   shift: string,
   LotID: string,
   CR: string,
-  Eqp: string,
+  Process_Tool: string,
+  Combo_Tool: string,
   x_offset:string,
   y_offset:string,
   r_x_offset:string,
@@ -80,57 +80,98 @@ const overlay = ({ data }: Props ) => {
 
   const [filterdata,setFilteredData] = useState(data);
 
-  // const [distinctEqpId,setdistinctEqpId] = useState([...new Set(data.map(x=>x.Eqp))]);
-  const [distinctEqpId,setdistinctEqpId] = useState([...new Set(data.map(x=>x.Eqp))]);
+  const [distinctEqpId,setdistinctEqpId] = useState([...new Set(data.map(x=>x.Process_Tool))]);
+  const [distinctComboEqpId,setdistinctComboEqpId] = useState([...new Set(data.map(x=>x.Combo_Tool))]);
+  const [distinctCR,setdistinctCR] = useState([...new Set(data.map(x=>x.CR))]);
 
-  const [CR,setCR] = useState([...new Set(data.map(x=>x.CR))]);
+  const [selectedcr,setSelectedcr]= useState('Select CR')
+  const [selectedprocesstool,setselectedprocesstool] = useState('Select Process')
+  const [selectedcombotool,setselectedcombotool]= useState('Select Combo')
 
-    // function for handle user change filter parameter
-    const handleEqpInputChange = event => {
-      event.preventDefault()
-      const { value } = event.target
-      if(value ==='Select Eqp'){
-        setFilteredData([...data])
-      }else{
-        setFilteredData(data.filter(x =>x.Eqp===value))
-      }
+
+
+  const handleSelectionChange = (e:SyntheticEvent):void =>{
+    e.preventDefault()
+    const { value, id} = e.target as HTMLInputElement
+    if (id ==='cr'){
+      setSelectedcr(value)
+    } else if (id==='process'){
+      setselectedprocesstool(value)
+    } else if(id==='combo') {
+      setselectedcombotool(value)
+    } else {
     }
-    const handleCRInputChange = event => {
-      event.preventDefault()
-      const { value } = event.target
-      if(value ==='Select CR'){
-        setFilteredData([...data])
+  }
 
-      }else{
-        setFilteredData(data.filter(x =>x.CR===value))
-        const reset = data.filter(x =>x.CR===value)
-        setdistinctEqpId([...new Set(reset.map(x=>x.Eqp))])
+  useEffect(() => {
 
-      }
+  const c1 = (cr:string,select:string)=>{
+    if(selectedcr === 'Select CR') {
+      return true
+    } else{
+      return cr ===select
     }
+  }
+  const c2 = (Process_Tool:string,select:string)=>{
+    if(selectedprocesstool === 'Select Process') {
+      return true
+    } else{
+      return Process_Tool ===select
+    }
+  }
+  const c3 = (Combo_Tool:string,select:string)=>{
+    if(selectedcombotool === 'Select Combo') {
+      return true
+    } else{
+      return Combo_Tool ===select
+    }
+  }
+
+  setFilteredData(data.filter(x => c1(x.CR,selectedcr) && c2(x.Process_Tool,selectedprocesstool) && c3(x.Combo_Tool,selectedcombotool)))
+
+  }, [selectedcr,selectedprocesstool,selectedcombotool])
+
+  useEffect(() => {
+    setdistinctCR([...new Set(filterdata.map(x=>x.CR))])
+    setdistinctEqpId([...new Set(filterdata.map(x=>x.Process_Tool))])
+    setdistinctComboEqpId([...new Set(filterdata.map(x=>x.Combo_Tool))])
+
+  }, [filterdata])
+
+  const clearfilter = ()=>{
+    setdistinctCR([...new Set(data.map(x=>x.CR))])
+    setdistinctEqpId([...new Set(data.map(x=>x.Process_Tool))])
+    setdistinctComboEqpId([...new Set(data.map(x=>x.Combo_Tool))])
+
+    setSelectedcr('Select CR')
+    setselectedprocesstool('Select Process')
+    setselectedcombotool('Select Combo')
+
 
     
+  }
+
   return (
     <Layout>
       <div>
-        <h1 className="title has-text-centered is-capitalized">{data[0].tab}</h1>
-        <div className="columns mx-2">
+        <h1 className="title has-text-centered is-capitalized">{data[0].tab}</h1> </div>  
+        <div className="columns mx-2 my-4">
             <div className="column is-narrow">
-            <div className="select is-info">
-                          <select onChange={handleCRInputChange}>
+            <div className="select is-info  is-rounded">
+                          <select onChange={handleSelectionChange} value = {selectedcr} id="cr">
                           <option value="Select CR">Select CR </option>
                           {
-                          CR.sort().map((item,key)=>(
+                          distinctCR.sort().map((item,key)=>(
                           <option value={item} key={key}>{item}</option>
                           ))
                           }
                           </select>     
             </div>
             </div>
-            <div className="column">
-            <div className="select is-info">
-                          <select onChange={handleEqpInputChange}>
-                          <option value="Select Eqp">Select Eqp </option>
+            <div className="column is-narrow">
+            <div className="select is-info  is-rounded">
+                          <select onChange={handleSelectionChange} value = {selectedprocesstool} id="process">
+                          <option value="Select Process">Select Process Tool </option>
                           {
                           distinctEqpId.sort().map((item,key)=>(
                           <option value={item} key={key}>{item}</option>
@@ -139,8 +180,21 @@ const overlay = ({ data }: Props ) => {
                           </select>     
             </div>
             </div>
-
-      </div>
+            <div className="column is-narrow">
+            <div className="select is-info  is-rounded">
+                          <select  onChange={handleSelectionChange} value = {selectedcombotool} id="combo">
+                          <option value="Select Combo">Select Combo Tool </option>
+                          {
+                          distinctComboEqpId.sort().map((item,key)=>(
+                          <option value={item} key={key}>{item}</option>
+                          ))
+                          }
+                          </select>     
+            </div>
+            </div>
+            <div className="column is-narrow">
+              <button className="button is-info is-rounded" onClick={clearfilter}>Clear filter</button>
+            </div>
       </div>
       <div className="columns mx-2">
 
@@ -208,7 +262,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 shift
 ,LotID
 ,[CR]
-,UPPER([Eqp]) as Eqp
+,UPPER([Process Tool]) as Process_Tool
+,case when UPPER([Combo Tool]) is null then 'cavity' else UPPER([Combo Tool]) END AS [Combo_Tool]
 ,[x-offset] as x_offset
 ,[y-offset] as y_offset
 ,[r-x-offset] as r_x_offset
@@ -218,7 +273,7 @@ shift
 ,[xoffset (Point3)] as xoffset_pts3
 ,[yoffset (Point3)] as yoffset_pts3
 ,[tab]
-  from [ATSBusSkyworksTools].[dbo].[UE_OVERLAY] where [tab] ='${query}'`
+from [ATSBusSkyworksTools].[dbo].[UE_OVERLAY] where [tab] ='${query}' `
   const cnn =  await sql.connect(config)
   const returned = await cnn.query(SQL).then((res: { recordset: any; })=>res.recordset)
 
