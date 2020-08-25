@@ -209,20 +209,20 @@ const overlay = ({ data }: Props ) => {
 
       <div className="columns mx-2">
         <div className="column">
-            <LinechartsContainer data={filterdata} chart = {"r_x_offset"} usl = {r_x_offset_chart.usl}  ucl = {r_x_offset_chart.ucl} lcl ={r_x_offset_chart.lcl}></LinechartsContainer>
+            <LinechartsContainer data={filterdata} chart = {"r_x_offset"} usl = {r_x_offset_chart.usl} lsl = {false} cl ={false} ucl = {r_x_offset_chart.ucl} lcl ={r_x_offset_chart.lcl}></LinechartsContainer>
           </div>
         <div className="column">
-          <LinechartsContainer data={filterdata} chart = {"r_y_offset"} usl = {r_y_offset_chart.usl} ucl = {r_y_offset_chart.ucl} lcl ={r_y_offset_chart.lcl}></LinechartsContainer>
+          <LinechartsContainer data={filterdata} chart = {"r_y_offset"} usl = {r_y_offset_chart.usl}  lsl = {false} cl ={false} ucl = {r_y_offset_chart.ucl} lcl ={r_y_offset_chart.lcl}></LinechartsContainer>
         </div>
 
       </div>
 
       <div className="columns mx-2">
         <div className="column">
-            <LinechartsContainer data={filterdata} chart = {"Rotation"} usl = {Rotation_chart.usl}  ucl = {Rotation_chart.ucl} lcl ={Rotation_chart.lcl}></LinechartsContainer>
+            <LinechartsContainer data={filterdata} chart = {"Rotation"} usl = {Rotation_chart.usl}  lsl = {false} cl ={false}  ucl = {Rotation_chart.ucl} lcl ={Rotation_chart.lcl}></LinechartsContainer>
           </div>
         <div className="column">
-          <LinechartsContainer data={filterdata} chart = {"Magnification"}  usl = {Magnification_chart.usl}  ucl = {Magnification_chart.ucl} lcl ={Magnification_chart.lcl}></LinechartsContainer>
+          <LinechartsContainer data={filterdata} chart = {"Magnification"}  usl = {Magnification_chart.usl}   lsl = {false} cl ={false} ucl = {Magnification_chart.ucl} lcl ={Magnification_chart.lcl}></LinechartsContainer>
         </div>
 
       </div>
