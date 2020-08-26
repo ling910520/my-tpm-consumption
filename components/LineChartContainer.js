@@ -17,9 +17,6 @@ import moment from "moment";
 
 const LinechartsContainer = ({data,lcl,ucl,usl,lsl,cl,chart}) => {
     const scale = 2.5
-
-  
-
     const chartTitle = ()=>{
         if(chart =='x_offset'){
             return 'X-offset'
@@ -49,7 +46,7 @@ const LinechartsContainer = ({data,lcl,ucl,usl,lsl,cl,chart}) => {
           <div className="column">
             <LineChart width={scale * 200} height={scale * 100} data={data}>
               <CartesianGrid strokeDasharray="3 3" />
-              {/* <XAxis dataKey="LotID" /> */}
+              <XAxis dataKey="rpt_date" tick={false} type="category" />
 
               <YAxis interval="preserveStartEnd" />
               <Tooltip />

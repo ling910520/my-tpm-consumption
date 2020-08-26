@@ -8,7 +8,7 @@ import { string } from "prop-types";
 import LinechartsContainer from "../components/LineChartContainer";
 import {useState, useEffect, SyntheticEvent, useRef} from 'react'
 export interface Data{
-
+  rpt_date: string,
   shift: string,
   LotID: string,
   CR: string,
@@ -259,7 +259,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     }
 }
   const SQL = `select 
-shift
+  CONVERT(varchar, [Date], 1) as rpt_date
+,shift
 ,LotID
 ,[CR]
 ,UPPER([Process Tool]) as Process_Tool
