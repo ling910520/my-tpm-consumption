@@ -13,6 +13,17 @@ const Linecharts = (props) => {
     const eqp_id  = data[0]['eqp_id'].toUpperCase()
     const renderEqpLimitCharts = () => {
         if (eqp_id.match(/DE/g)) {
+
+            const PM1_RFHours = data.filter(row => row.svid_name === 'Stat2_Etch_MV_RFHours')
+            const PM2_RFHours = data.filter(row => row.svid_name === 'Stat3_Etch_MV_RFHours')
+            const PM3_RFHours = data.filter(row => row.svid_name === 'Stat4_Etch_MV_RFHours')
+
+            const series = [{name: 'PM1_RFHours', data:PM1_RFHours},
+            {name: 'PM2_RFHours', data:PM2_RFHours},
+            {name: 'PM3_RFHours', data:PM3_RFHours}
+            ]
+
+
             const {consumption_limit,svid_value,inserted_timestamp,svid_name}=data[data.length-1]
             const remainDays = (consumption_limit - parseFloat(svid_value))/8
             const tpmForecast= moment(inserted_timestamp).add(remainDays.toFixed(),'days')
@@ -46,7 +57,10 @@ const Linecharts = (props) => {
                                 <ReferenceLine name="Max" y={400} stroke="red" ifOverflow="extendDomain" label={`RF Max (${parseInt(data[0]['consumption_limit'])})`} />
                                 <ReferenceLine name="Warning" y={360} stroke="orange" ifOverflow="extendDomain" label={`RF Max (${parseInt(data[0]['consumption_limit'])*0.9})`} />
 
-                                <Line dataKey="svid_value" name="RF Hrs" stroke="#8884d8" activeDot={{ r: 8 }} />
+                                {/* <Line dataKey="svid_value" name="RF Hrs" stroke="#8884d8" activeDot={{ r: 8 }} /> */}
+                                {PM1_RFHours.length>0?<Line dataKey="svid_value" data={series[0]['data']} name="PM1_RFHours" stroke="blue" key="PM1_RFHours" />:''}
+                                {PM2_RFHours.length>0?<Line dataKey="svid_value" data={series[1]['data']} name="PM2_RFHours" stroke="orange" key="PM2_RFHours" />:''}
+                                {PM3_RFHours.length>0?<Line dataKey="svid_value" data={series[2]['data']} name="PM3_RFHours" stroke="cyan" key="PM3_RFHours" />:''}
 
                             </LineChart>
                         </div>
